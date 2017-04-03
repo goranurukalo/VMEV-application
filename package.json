@@ -1,8 +1,26 @@
 {
-  "name"    : "guran",
-  "version" : "0.1.0",
-  "main"    : "main.js",
-  "scripts" : {
-    "start" : "./node_modules/.bin/eletron ."
-  }
+  "name": "guran",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron ."
+  },
+  "description": "This is application about voice, message, edit, video. Small p2p project to help me and my friends.",
+  "dependencies": {
+    "electron": "^1.6.2"
+  },
+  "devDependencies": {
+    "electron": "^1.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goranurukalo/VMEV-application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goranurukalo/VMEV-application/issues"
+  },
+  "homepage": "https://github.com/goranurukalo/VMEV-application#readme"
 }
