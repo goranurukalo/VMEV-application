@@ -444,6 +444,7 @@ body {
 	top: 54px;
 	left: 0;
 	background-color: #fff;
+	z-index: 251;
 }
 .container-fluid .right .hide-default{
 	display: none;
