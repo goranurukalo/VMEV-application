@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is application about voice, message, edit, video. Small p2p project to help me and my friends.">
+    <meta name="author" content="Goran Urukalo">
+
+    <title>VMEV application</title>
+	
+    <link href="css/startup.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div id='container'>
+	<form id='form' action='#' onsubmit='return regex();'>
+	    <input checked id='signin' name='action' type='radio' value='signin'>
+	    <label for='signin'>Sign in</label>
+	    <input id='signup' name='action' type='radio' value='signup'>
+	    <label for='signup'>Sign up</label>
+	    <input id='reset' name='action' type='radio' value='reset'>
+	    <label for='reset'>Reset</label>
+	    <div id='wrapper'>
+		    <div id='arrow'></div>
+		    <input id='email' placeholder='Email' type='text' required='required' title='Example: something@gmail.com' pattern='\S+@\S+\.\S{2,4}'>
+			<input id="pass" placeholder="Password" type="password" required="required" minlength="5" maxlength="128">
+		    <input id='repass' placeholder='Repeat password' type='password'>
+		    
+			<input id='firstName' placeholder='First name' type='text'>
+		    <input id='lastName' placeholder='Last name' type='text'>
+			
+	    </div>
+	    <!--<button type='submit' onclick='regex();' >-->
+	    <button type='submit' onclick="repass_check();">
+			<span>
+			    Reset password
+			    <br>
+			    Sign in
+			    <br>
+			    Sign up
+			</span>
+	    </button>
+	</form>
+	<div id='hint'>
+		<a href="#"><span>Facebook</span></a>
+		<a href="#"><span>Twitter</span></a>
+		<a href="#"><span>Google+</span></a>
+		<a href="#"><span>Github</span></a>
+		<a href="#"><span>Dribbble</span></a>
+		<a href="#"><span>CodePen</span></a>
+	</div>
+</div>
+	<div id='loading'>
+		<div class="content">
+		  <div class="content__container">
+			<p class="content__container__text">
+			  Try
+			</p>
+			
+			<ul class="content__container__list">
+			  <li class="content__container__list__item">voice call !</li>
+			  <li class="content__container__list__item">instant messaging !</li>
+			  <li class="content__container__list__item">live editing !</li>
+			  <li class="content__container__list__item">video call !</li>
+			</ul>
+		  </div>
+		</div>
+	</div>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="js/form.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

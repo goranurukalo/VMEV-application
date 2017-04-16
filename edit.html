@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<!--
+<link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.js"></script>
+-->
+<link rel=stylesheet href="lib/codemirror.css">
+<script src="lib/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/javascript/javascript.js"></script>
+
+
+<style>
+  html{
+	height: calc(100% - 67px);
+  }
+  body{
+	background-color: #eee;
+	height: 100%;
+  }
+  #cm{
+	height: 100%;
+  }
+  .CodeMirror{
+	height: 100%;
+  }
+::-webkit-scrollbar{ width:9px; height:9px; }
+::-webkit-scrollbar-button:start:decrement, 
+::-webkit-scrollbar-button:end:increment{ 
+  display:block;
+  height:0;
+  background-color:transparent;
+}
+::-webkit-scrollbar-track-piece{
+  background-color: transparent;
+  -webkit-border-radius:0;
+  -webkit-border-bottom-right-radius:8px;
+  -webkit-border-bottom-left-radius:8px;
+}
+::-webkit-scrollbar-thumb:vertical{
+  height:50px;
+  background-color: rgba(153,153,153,.4);
+  -webkit-border-radius:8px;
+}
+::-webkit-scrollbar-thumb:horizontal{
+  width:50px;
+  background-color:#999;
+  -webkit-border-radius:8px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover{
+	background-color: rgba(153,153,153,.8);
+}
+::-webkit-scrollbar-thumb:vertical:start{
+	background-color: rgba(153,153,153,1);
+}
+
+</style>
+</head>
+<body>
+	<div id="cm">
+		
+	</div>
+	
+	<script>
+		var editor = CodeMirror(document.getElementById('cm'),{
+			lineNumbers: true,
+			lineWrapping: true
+		});
+	</script>
+</body>
+</html>

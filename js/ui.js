@@ -117,10 +117,12 @@ function messageRender(){
 	$(".active-chat").scrollTop($(".active-chat")[0].scrollHeight);
 	
 	
-	if($(".right .active-chat .bubble:nth-child(2)").attr("style") != undefined){
+	if($(".right .active-chat .bubble:last-child").attr("style") != undefined){
 		//
 		//	this is for performanse
 		//	if he got duration dont calc it again
+		//
+		// 	and automatic if message is added it will add animation 
 		//
 		return false;
 	}
@@ -128,15 +130,31 @@ function messageRender(){
 	//
 	// adding animation to messages 
 	//
-	var number = $('.right .active-chat').children().length - 1;
+	var number = $('.right .active-chat').children().length -1;
+	/*
 	$(".right .active-chat .bubble").each(function(index){
 		$(this).css({
 			'animation-duration' : 0.1*(1+ number - index) + 's'
 		});
-	});
+	});*/
+	
+	//
+	// this is for going backword and stop adding animation after 20 elements
+	//
+	var j = 20;
+	for(var i = number; i >= 0; i--){
+		if(j-- == 0) return false;
+		var a = $(".right .active-chat .bubble")[i];
+		$(a).css({
+			'animation-duration' : 0.1*(4+ number - i) + 's'
+		});
+		
+	}
 }
 function editRender(){
-	
+	if ($('#code-mirror').is(':empty')){
+	  document.getElementById("code-mirror").innerHTML='<object type="text/html" data="edit.html" ></object>';
+	}
 }
 function videoRender(){
 	
