@@ -218,22 +218,6 @@ content:'\f1cb';
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #loading{
 	display: none;
 	height: 100%;
@@ -303,7 +287,22 @@ content:'\f1cb';
 .content__container__list__item {
   line-height: 40px;
   margin: 0;
+  white-space: nowrap;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @-webkit-keyframes opacity {
   0%, 100% {

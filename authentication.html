@@ -10,13 +10,14 @@
 
     <title>VMEV application</title>
 	
-    <link href="css/startup.css" rel="stylesheet">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/authentication.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	
 </head>
 
 <body>
 <div id='container'>
-	<form id='form' action='#' onsubmit='return regex();'>
+	<form id='form'>
 	    <input checked id='signin' name='action' type='radio' value='signin'>
 	    <label for='signin'>Sign in</label>
 	    <input id='signup' name='action' type='radio' value='signup'>
@@ -25,16 +26,16 @@
 	    <label for='reset'>Reset</label>
 	    <div id='wrapper'>
 		    <div id='arrow'></div>
-		    <input id='email' placeholder='Email' type='text' required='required' title='Example: something@gmail.com' pattern='\S+@\S+\.\S{2,4}'>
-			<input id="pass" placeholder="Password" type="password" required="required" minlength="5" maxlength="128">
-		    <input id='repass' placeholder='Repeat password' type='password'>
+		    <input id='email' placeholder='Email' type='text'>
+			<input id="pass" placeholder="Password" type="password">
+		    <input id='repass' placeholder='Repeat password' type='password' tabindex="-1">
 		    
-			<input id='firstName' placeholder='First name' type='text'>
-		    <input id='lastName' placeholder='Last name' type='text'>
+			<input id='firstName' placeholder='First name' type='text' tabindex="-1">
+		    <input id='lastName' placeholder='Last name' type='text' tabindex="-1">
 			
 	    </div>
 	    <!--<button type='submit' onclick='regex();' >-->
-	    <button type='submit' onclick="repass_check();">
+	    <button type='button' onclick='regex();'>
 			<span>
 			    Reset password
 			    <br>
@@ -44,6 +45,7 @@
 			</span>
 	    </button>
 	</form>
+	
 	<div id='hint'>
 		<a href="#"><span>Facebook</span></a>
 		<a href="#"><span>Twitter</span></a>
@@ -70,8 +72,8 @@
 		</div>
 	</div>
 	
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>window.$ = window.jQuery =  require('./js/jquery.js'); </script>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 	<script src="js/form.js"></script>
 </body>
 
