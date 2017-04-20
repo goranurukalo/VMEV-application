@@ -1,5 +1,4 @@
-const electron = require('electron');
-const {ipcRenderer} = electron;
+const {ipcRenderer} = require('electron');
 var action = "signin";
 $("form").hide();
 
@@ -13,19 +12,16 @@ $('input[type=radio][name=action]').change(function() {
 	if (action == 'signin') {
 		$("#repass , #firstName , #lastName").each(function(){
 			$(this).attr("tabindex" , "-1");
-			console.log(action + " " + $(this));
 		});
 	}
 	else if (action == 'signup') {
 		$("#repass , #firstName , #lastName").each(function(){
 			$(this).removeAttr("tabindex");
-			console.log(action + " " + $(this));
 		});
 	}
 	else if(action == 'reset'){
 		$("#repass , #firstName , #lastName , #pass").each(function(){
 			$(this).attr("tabindex" , "-1");
-			console.log(action + " " + $(this));
 		});
 	}
 });
@@ -34,31 +30,41 @@ $('input[type=radio][name=action]').change(function() {
 $('#loading').hide();
 
 function regex(){
+	var url = "";
 	var msg = null;
 	var userdata = {};
 	if (action == 'signin') {
+		
+		url = "login";
+		
 		msg = _regex([
 			["email","email"],
-			["pass","password"]
+			["password","password"]
 		]);
 		userdata["email"] = $("#email").val();
-		userdata["pass"] = $("#pass").val();
+		userdata["password"] = $("#pass").val();
 	}
 	else if (action == 'signup') {
+		
+		url = "register";
+		
 		msg = _regex([
 			["email","email"],
-			["pass","password"],
+			["password","password"],
 			["repass","password"],
 			["firstName","fname"],
 			["lastName","lname"]
 		]);
 		userdata["email"] = $("#email").val();
-		userdata["pass"] = $("#pass").val();
+		userdata["password"] = $("#pass").val();
 		userdata["repass"] = $("#repass").val();
 		userdata["firstName"] = $("#firstName").val();
 		userdata["lastName"] = $("#lastName").val();
 	}
 	else if(action == 'reset'){
+		
+		url = "resetpassword";
+		
 		msg = _regex([
 			["email","email"]
 		]);
@@ -81,11 +87,13 @@ function regex(){
 	}
 
 	$.ajax({
-		url: "http://localhost:3000/login",
+		url: "http://localhost:3000/"+url,
 		type: "post",
-		data: userdata,
+		data: JSON.stringify(userdata),
+		dataType: "json",
+		contentType: "application/json",
 		success: function (data){
-			alter("data:"+JSON.stringify(data));
+			alert("data:"+JSON.stringify(data));
 			ipcRenderer.send('async', data);
 		},
 		error: function(err){
@@ -101,7 +109,6 @@ function regex(){
 			$("#loading").fadeOut();
 			$("#container").fadeIn();
 		}
-		
 	});
 }
 
@@ -143,3 +150,13 @@ function _regex(value){
 	}
 	return error_string;
 }
+
+/*
+
+// WORKS
+
+ipcRenderer.send('async', 5);
+
+ipcRenderer.on('async-reply' , function(event, arg){
+	console.log(arg);
+});*/

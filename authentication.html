@@ -11,8 +11,9 @@
     <title>VMEV application</title>
 	
     <link href="css/authentication.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+	<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	-->
 </head>
 
 <body>
@@ -47,7 +48,7 @@
 	</form>
 	
 	<div id='hint'>
-		<a href="#"><span>Facebook</span></a>
+		<a href="https://www.facebook.com/"><span>Facebook</span></a>
 		<a href="#"><span>Twitter</span></a>
 		<a href="#"><span>Google+</span></a>
 		<a href="#"><span>Github</span></a>
@@ -75,6 +76,14 @@
 	<script>window.$ = window.jQuery =  require('./js/jquery.js'); </script>
 	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 	<script src="js/form.js"></script>
+	<script>
+		const shell = require('electron').shell;
+
+	    $(document).on('click', 'a[href^="http"]', function(event) {
+			event.preventDefault();
+			shell.openExternal(this.href);
+		});
+	</script>
 </body>
 
 </html>

@@ -8,18 +8,32 @@ let win;
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 640});
+  //win = new BrowserWindow({width: 800, height: 640 , show: false});
+  win = new BrowserWindow({width: 800, height: 640 , show: false});
 
   // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'authentication.html'),/*index*/
+    //pathname: path.join(__dirname, 'index.html'),/*index*/
     protocol: 'file:',
     slashes: true
   }));
-
+  
+  
+  /*
+  //
+  // This is way to wait html to load 
+  //
+  win.webContents.on('did-finish-load', function(){
+        win.show();
+  });
+  */
+  
+  
   // Open the DevTools.
   //win.webContents.openDevTools()
 
+  
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
@@ -52,5 +66,8 @@ app.on('activate', () => {
 });
 
 ipcMain.on('async' , function(event, arg){
-	console.log(arg);
+	/*
+	// works
+	event.sender.send('async-reply', (arg*2));
+	*/
 });

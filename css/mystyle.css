@@ -1,4 +1,36 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+@font-face {
+    font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+    src: url('../fonts/_Raleway-Light.ttf');
+}
+@font-face {
+    font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+    src: url('../fonts/_Raleway-Regular.ttf');
+}
+@font-face {
+    font-family: 'Raleway';
+	font-style: italic;
+	font-weight: 400;
+    src: url('../fonts/_Raleway-Italic.ttf');
+}
+@font-face {
+    font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 600;
+    src: url('../fonts/_Raleway-Bold.ttf');
+}
+@font-face {
+    font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 800;
+    src: url('../fonts/_Raleway-ExtraBold.ttf');
+}
+
+
+
 *,
 *:before,
 *:after {
@@ -6,7 +38,8 @@
 }
 html, body ,div{ height: 100%; width: 100%; margin: 0; }
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  /*font-family: 'Source Sans Pro', sans-serif;*/
+  font-family: 'Raleway', sans-serif;
   font-weight: 400;
   overflow:hidden;
   width:100%;
@@ -78,7 +111,8 @@ body {
   border: 1px solid #e6e6e6;
   background-color: #eceff1;
   border-radius: 8px;
-  font-family: 'Source Sans Pro', sans-serif;
+  /*font-family: 'Source Sans Pro', sans-serif;*/
+  font-family: 'Raleway', sans-serif;
   font-weight: 400;
 }
 .container-fluid .left input:focus {
@@ -156,7 +190,8 @@ body {
   font-size: 14px;
   line-height: 22px;
   color: #fff;
-  font-family: 'Source Sans Pro', sans-serif;
+  /*font-family: 'Source Sans Pro', sans-serif;*/
+  font-family: 'Raleway', sans-serif;
   font-weight: 600;
 }
 .container-fluid .left .people .person.active, .container-fluid .left .people .person:hover {
@@ -247,7 +282,8 @@ body {
   border: 0;
   outline: none;
   background-color: #eceff1;
-  font-family: 'Source Sans Pro', sans-serif;
+  /*font-family: 'Source Sans Pro', sans-serif;*/
+  font-family: 'Raleway', sans-serif;
   font-weight: 400;
 }
 .container-fluid .right .write .write-link{
