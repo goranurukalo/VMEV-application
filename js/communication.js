@@ -23,7 +23,6 @@ var _activeEditInfo = {
         this.userId = null;
         this.userPeerId = null;
         this.language = null;
-        this.filePath = null;
     }
 };
 
@@ -830,7 +829,9 @@ function SaveEditorData() {
         filePath: _activeEditInfo.filePath,
         fileData: $editor.GetDataFromEditor()
     };
-    UseIcpRenderer('SaveFile', data);
+    if (data.filePath != null && data.fileData != null) {
+        UseIcpRenderer('SaveFile', data);
+    }
 }
 
 

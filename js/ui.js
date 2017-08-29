@@ -641,14 +641,13 @@ function FileSelectHandler(e) {
 	if (!ValidateEditInputFileExtension(file.type))
 		return;
 	tick.style.opacity = 1;
-
 	//ako je user aktivan onda omoguciti poziv
 	if (isActiveUserOnline()) {
 		editButton.attr("disabled", false);
 	}
 	_editFile.InsertFile(file);
 	if (!_activeEditInfo.userPeerId) {
-		_activeEditInfo.filePath = e.srcElement.baseURI || null;
+		_activeEditInfo.filePath = file.path || null;
 	}
 }
 
