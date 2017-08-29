@@ -1,73 +1,137 @@
-const {app, BrowserWindow, ipcMain} = require('electron');
+const {
+	app,
+	BrowserWindow,
+	ipcMain,
+	protocol
+} = require('electron');
 const path = require('path');
 const url = require('url');
+const http = require('http');
+const fs = require('fs');
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let win;
+let win, mainWin;
 
-function createWindow () {
-  // Create the browser window.
-  //win = new BrowserWindow({width: 800, height: 640 , show: false});
-  win = new BrowserWindow({width: 800, height: 640 , show: false});
+let userData = null,
+	logged = false;
 
-  // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'authentication.html'),/*index*/
-    //pathname: path.join(__dirname, 'index.html'),/*index*/
-    protocol: 'file:',
-    slashes: true
-  }));
-  
-  
-  /*
-  //
-  // This is way to wait html to load 
-  //
-  win.webContents.on('did-finish-load', function(){
-        win.show();
-  });
-  */
-  
-  
-  // Open the DevTools.
-  //win.webContents.openDevTools()
 
-  
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    win = null
-  });
+app.on('ready', createWindow);
+app.on('window-all-closed', () => {
+	// for macOS
+	if (process.platform !== 'darwin') {
+		app.quit();
+	}
+});
+app.on('activate', () => {
+	// On macOS it's common to re-create a window
+	if (win === null) {
+		createWindow();
+	}
+});
+
+function createWindow() {
+	if (logged) {
+		mainWin = new BrowserWindow({
+			minWidth: 800,
+			minHeight: 640,
+			width: 800,
+			height: 640,
+			show: false,
+			icon: path.join(__dirname, 'images/icon/64x64.png')
+		});
+		//mainWin.setMenu(null);
+		mainWin.loadURL(url.format({
+			pathname: path.join(__dirname, 'index.html'),
+			protocol: 'file:',
+			slashes: true
+		}));
+		mainWin.webContents.on('did-finish-load', function () {
+			mainWin.show();
+			if (win != null)
+				win.close();
+		});
+
+		// Open the DevTools.
+		//mainWin.webContents.openDevTools()
+
+		mainWin.on('closed', () => {
+			mainWin = null
+		});
+	} else {
+		win = new BrowserWindow({
+			minWidth: 800,
+			minHeight: 640,
+			width: 800,
+			height: 640,
+			show: false,
+			icon: path.join(__dirname, 'images/icon/64x64.png')
+		});
+		//win.setMenu(null);
+		win.loadURL(url.format({
+			pathname: path.join(__dirname, 'authentication.html'),
+			protocol: 'file:',
+			slashes: true
+		}));
+		win.webContents.on('did-finish-load', function () {
+			win.show();
+		});
+
+		// Open the DevTools.
+		//win.webContents.openDevTools()
+
+		win.on('closed', () => {
+			win = null
+		});
+	}
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
-
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-});
-
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (win === null) {
-    createWindow()
-  }
-});
-
+/*
 ipcMain.on('async' , function(event, arg){
-	/*
+	
 	// works
 	event.sender.send('async-reply', (arg*2));
-	*/
+	
 });
+*/
+ipcMain.on('logged', function (event, arg) {
+	userData = arg;
+	logged = true;
+
+	createWindow();
+});
+
+ipcMain.on('friends', function (event, arg) {
+	event.sender.send('friendsResponse', userData);
+	if (userData.imgUrl === undefined) {
+		event.sender.send("uploadProfileImage", null);
+	}
+});
+ipcMain.on('close', function (event, arg) {
+	if (mainWin != null) {
+		mainWin.close();
+	}
+});
+
+ipcMain.on('sync', function (event, arg) {
+	if (mainWin != null) {
+		mainWin.reload();
+	}
+});
+
+ipcMain.on('SaveFile', function (event, arg) {
+	if (arg) {
+		console.log(arg);
+		/*
+		fs.writeFile(arg.filePath.replace('file:///', ''), arg.fileData, function (err) {
+			if (err) {
+				console.log('file save error');
+				return;
+			} else {
+				event.sender.send('EditorFileSaved', true);
+			}
+
+		});*/
+	}
+});
+
+//main 46lc problem

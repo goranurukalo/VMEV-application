@@ -3,40 +3,40 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="This is application about voice, message, edit, video. Small p2p project to help me and my friends.">
-    <meta name="author" content="Goran Urukalo">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is application about voice, message, edit, video. Small p2p project to help me and my friends.">
+	<meta name="author" content="Goran Urukalo">
 
-    <title>VMEV application</title>
-	
-    <link href="css/authentication.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-	<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	-->
+	<title>VMEV application</title>
+
+	<link href="css/authentication.css" rel="stylesheet">
+	<link href="css/popup.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
-<div id='container'>
-	<form id='form'>
-	    <input checked id='signin' name='action' type='radio' value='signin'>
-	    <label for='signin'>Sign in</label>
-	    <input id='signup' name='action' type='radio' value='signup'>
-	    <label for='signup'>Sign up</label>
-	    <input id='reset' name='action' type='radio' value='reset'>
-	    <label for='reset'>Reset</label>
-	    <div id='wrapper'>
-		    <div id='arrow'></div>
-		    <input id='email' placeholder='Email' type='text'>
-			<input id="pass" placeholder="Password" type="password">
-		    <input id='repass' placeholder='Repeat password' type='password' tabindex="-1">
-		    
-			<input id='firstName' placeholder='First name' type='text' tabindex="-1">
-		    <input id='lastName' placeholder='Last name' type='text' tabindex="-1">
-			
-	    </div>
-	    <!--<button type='submit' onclick='regex();' >-->
-	    <button type='button' onclick='regex();'>
+	<div id="multipopup" class="cd-popup"></div>
+	<div id='container'>
+		<form id='form'>
+			<input checked id='signin' name='action' type='radio' value='signin'>
+			<label for='signin'>Sign in</label>
+			<input id='signup' name='action' type='radio' value='signup'>
+			<label for='signup'>Sign up</label>
+			<input id='reset' name='action' type='radio' value='reset'>
+			<label for='reset'>Reset</label>
+			<div id='wrapper'>
+				<div id='arrow'></div>
+				<!-- skloni ove stvari , tu su samo radi testiranja (values) -->
+				<input id='email' placeholder='Email' type='text' autofocus value="dev.goranurukalo@gmail.com">
+				<input id="pass" placeholder="Password" type="password" value="1234567890">
+				<input id='repass' placeholder='Repeat password' type='password' tabindex="-1">
+
+				<input id='firstName' placeholder='First name' type='text' tabindex="-1">
+				<input id='lastName' placeholder='Last name' type='text' tabindex="-1">
+
+			</div>
+			<button type='button' onclick='regex();'>
 			<span>
 			    Reset password
 			    <br>
@@ -45,41 +45,43 @@
 			    Sign up
 			</span>
 	    </button>
-	</form>
-	
-	<div id='hint'>
-		<a href="https://www.facebook.com/"><span>Facebook</span></a>
-		<a href="#"><span>Twitter</span></a>
-		<a href="#"><span>Google+</span></a>
-		<a href="#"><span>Github</span></a>
-		<a href="#"><span>Dribbble</span></a>
-		<a href="#"><span>CodePen</span></a>
-	</div>
-</div>
-	<div id='loading'>
-		<div class="content">
-		  <div class="content__container">
-			<p class="content__container__text">
-			  Try
-			</p>
-			
-			<ul class="content__container__list">
-			  <li class="content__container__list__item">voice call !</li>
-			  <li class="content__container__list__item">instant messaging !</li>
-			  <li class="content__container__list__item">live editing !</li>
-			  <li class="content__container__list__item">video call !</li>
-			</ul>
-		  </div>
+		</form>
+
+		<div id='hint'>
+			<a href="https://www.facebook.com//goran.urukalo.1"><span>Facebook</span></a>
+			<a href="https://twitter.com/GoranUruk96"><span>Twitter</span></a>
+			<a href="https://github.com/goranurukalo"><span>Github</span></a>
+			<a href="https://www.linkedin.com/in/goran-urukalo/"><span>Linkedin</span></a>
+			<a href="https://codepen.io/GoksiiLija/"><span>CodePen</span></a>
 		</div>
 	</div>
-	
-	<script>window.$ = window.jQuery =  require('./js/jquery.js'); </script>
+	<div id='loading'>
+		<div class="content">
+			<div class="content__container">
+				<p class="content__container__text">
+					Try
+				</p>
+
+				<ul class="content__container__list">
+					<li class="content__container__list__item">voice call !</li>
+					<li class="content__container__list__item">instant messaging !</li>
+					<li class="content__container__list__item">live editing !</li>
+					<li class="content__container__list__item">video call !</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		window.$ = window.jQuery = require('./lib/jquery.js');
+	</script>
 	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 	<script src="js/form.js"></script>
+	<script src="js/popup.js"></script>
 	<script>
 		const shell = require('electron').shell;
 
-	    $(document).on('click', 'a[href^="http"]', function(event) {
+		$(document).on('click', 'a[href^="http"]', function (event) {
 			event.preventDefault();
 			shell.openExternal(this.href);
 		});
@@ -87,17 +89,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

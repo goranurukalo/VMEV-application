@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <link href="css/uploadcrop.css" rel="stylesheet">
+    <link href="lib/croppie.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="content">
+        <div class="shadow"></div>
+        <div id="popupContainer"></div>
+        <div id="loader"></div>
+        <div class="dragdrop">
+            <div id='closeDragDrop' class="cd-popup-close"></div>
+
+            <div class="drop" id="drop">
+                <div class="explanation">Select your profile picture</div>
+                <div class="upload-img"></div>
+                <div class="title">DRAG &amp; DROP</div>
+                <div class="smalltext">Or just click and browse files</div>
+                <input id="croppiefile" type="file">
+            </div>
+            <div id="croppie-content">
+                <img id="croppieImg" />
+                <button type="button" class="btnUpload" onclick="imgReadyToSend();">Upload</button>
+                <button type="button" class="btnPreview" onclick="imgPreview();">Preview</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/uploadcrop.js"></script>
+    <script src="lib/croppie.js"></script>
+</body>
+
+</html>

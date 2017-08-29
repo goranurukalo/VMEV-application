@@ -3,44 +3,89 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="This is application about voice, message, edit, video. Small p2p project to help me and my friends.">
-    <meta name="author" content="Goran Urukalo">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is application about voice, message, edit, video. Small p2p project to help me and my friends.">
+	<meta name="author" content="Goran Urukalo">
 
-    <title>VMEV application</title>
-	
-    <link href="css/mystyle.css" rel="stylesheet">
+	<title>VMEV application</title>
+
+	<link href="css/mystyle.css" rel="stylesheet">
+	<link href="css/popup.css" rel="stylesheet">
+	<link href="css/loadingFriends.css" rel="stylesheet">
+	<link href="css/wdt-emoji-bundle.css" rel="stylesheet">
+	<style type="text/css">
+		.voice-img::before {
+			visibility: hidden;
+		}
+	</style>
 </head>
 
 <body>
-    <div class='container-fluid'>
+	<div id="UploadCropImage">
+		<!--<iframe src="uploadcrop.html"></iframe>-->
+	</div>
+	<div id="multipopup" class="cd-popup" data-popupid='0'></div>
+	<div class='container-fluid'>
 		<div class='row'>
-		
-				<div class="features height-max color-blue">
-					<div class="top">
-						This is top
-					</div>
-					<div class='tools'>
-						<ul>
-							<li data-tool='voice'><a href="javascript:;" class='voice-btn'></a></li>
-							<li data-tool='message'><a href="javascript:;" class='message-btn'></a></li>
-							<li data-tool='edit'><a href="javascript:;" class='edit-btn'></a></li>
-							<li data-tool='video'><a href="javascript:;" class='video-btn'></a></li>
-						</ul>
+
+			<div class="features height-max color-blue">
+				<div class="top">
+
+				</div>
+				<div class='tools'>
+					<ul>
+						<li data-tool='voice'><a href="javascript:;" class='voice-btn' title='Voice chat with friends'></a></li>
+						<li data-tool='message'><a href="javascript:;" class='message-btn' title='Message with friends'></a></li>
+						<li data-tool='edit'><a href="javascript:;" class='edit-btn' title='Edit file with friend'></a></li>
+						<li data-tool='video'><a href="javascript:;" class='video-btn' title='Video chat with friends'></a></li>
+					</ul>
+					<div class="tool-settings">
+						<button title='Force friend list synchronization' class="sync-button" onclick="__sync();"></button>
+						<img title="Hey look it's me" id="userProfileImg" src="images/app/default_user.png" />
 					</div>
 				</div>
-				
-				
-				
-				
-				<div class="left col height-max color-gray">
-					<div class="top search-padding">
-						<input type="text" placeholder='Search for Friend...'/>
-						<a href="javascript:;" class="search"></a>
+			</div>
+
+
+
+
+			<div class="left col height-max color-gray">
+				<div class="top search-padding">
+					<input type="text" id='searchFriends' onkeyup="SearchOnChange(this)" placeholder='Search or add' />
+					<a href="javascript:;" onclick="SearchForNewFriends()" class="search"></a>
+				</div>
+				<div id='loading-people'>
+					<div class="grid">
+						<div class="row">
+							<div class="circle one"></div>
+							<div class="circle two"></div>
+							<div class="circle three"></div>
+						</div>
+						<div class="row">
+							<div class="circle four"></div>
+							<div class="circle five"></div>
+							<div class="circle six"></div>
+						</div>
+						<div class="row">
+							<div class="circle seven"></div>
+							<div class="circle eight"></div>
+							<div class="circle nine"></div>
+						</div>
 					</div>
-					
-					<ul class="people">
+					<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+						<defs>
+							<filter id="goo">
+								<feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+								<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+								<feComposite in="SourceGraphic" in2="goo" operator="atop" />
+							</filter>
+						</defs>
+					</svg>
+				</div>
+				<ul class="searched-people"></ul>
+				<ul class="people">
+					<!--
 						<li class="person" data-person="person1">
 							<img src="http://s13.postimg.org/ih41k9tqr/img1.jpg" alt="" />
 							<span class="name">Thomas Bangalter</span>
@@ -52,52 +97,46 @@
 								<span></span>
 							</div>
 						</li>
-						<li class="person" data-person="person2">
-							<img src="http://s3.postimg.org/yf86x7z1r/img2.jpg" alt="" />
-							<span class="name">Dog Woofson</span>
-							<div>
-								<span class='login-status status-online'></span>
-								<span class='status-text'>Online</span>
-							</div>
-						</li>
-						<li class="person" data-person="person3">
-							<img src="http://s3.postimg.org/h9q4sm433/img3.jpg" alt="" />
-							<span class="name">Louis CK</span>
-							<div>
-								<span class='login-status status-online'></span>
-								<span class='status-text'>Online</span>
-							</div>
-						</li>
-						<li class="person" data-person="person4">
-							<img src="http://s3.postimg.org/quect8isv/img4.jpg" alt="" />
-							<span class="name">Bo Jackson</span>
-							<div>
-								<span class='login-status status-offline'></span>
-								<span class='status-text'>Offline</span>
-							</div>
-						</li>
-					</ul>
-					
-				</div>
-				
-				
-				
-				
-				
-				
-				
+					-->
+				</ul>
+
+			</div>
+
+
+
+
+
+
+
 			<div class="right height-max">
 				<div class="top">
 					This is top
 				</div>
-					<div class='choose-container'>
-						This is default
+				<div class='choose-container'>
+					<img src="images/app/default-image.svg" />
+				</div>
+
+				<div class='voice-container'>
+					<div class="videos-you-me hideThis">
+						<video id="your-audio" autoplay="" muted="false"></video>
 					</div>
-					
-					<div class='voice-container'>
-						This is voice
+
+					<div class="voice-body">
+						<div class="voice-img">
+							<img src="images/app/default_user.png">
+						</div>
 					</div>
-					<div class='message-container'>
+
+					<div class="voice-settings">
+						<!-- mute i poziv tj gasenje poziva -->
+						<button disabled class='mute-myself' onclick='voiceMuteMyself(this)'></button>
+						<button disabled class='voice-mute' onclick='voiceMute(this);'></button>
+						<button disabled class='voice-call' onclick='voiceCall(this);' data-voice-call="false"></button>
+					</div>
+
+				</div>
+				<div class='message-container'>
+					<!--
 						<div class="chat" data-chat="person1">
 							<div class="conversation-start">
 								<span>Today, 6:48 AM</span>
@@ -112,150 +151,165 @@
 								I was wondering...
 							</div>
 						</div>
-						<div class="chat" data-chat="person2">
-							<div class="conversation-start">
-								<span>Today, 5:38 PM</span>
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								Hello, can you hear me?
-							</div>
-							<div class="bubble you">
-								aasasgasgags asgasgasga gasgasgasgasg asga sgasg sgasg asgasad asdasd asdas dasd a
-							</div>
-							<div class="bubble me">
-								... about who we used to be.
-							</div>
-							<div class="bubble me">
-								Are you serious?
-							</div>
-							<div class="bubble you">
-								When we were younger and free...
-							</div>
-							<div class="bubble you">
-								I've forgotten how it felt before
-							</div>
-							</div>
-							<div class="chat" data-chat="person3">
-							<div class="conversation-start">
-								<span>Today, 3:38 AM</span>
-							</div>
-							<div class="bubble you">
-								Hey human!
-							</div>
-							<div class="bubble you">
-								Umm... Someone took a shit in the hallway.
-							</div>
-							<div class="bubble me">
-								... what.
-							</div>
-							<div class="bubble me">
-								Are you serious?
-							</div>
-							<div class="bubble you">
-								I mean...
-							</div>
-							<div class="bubble you">
-								It’s not that bad...
-							</div>
-							<div class="bubble you">
-								But we’re probably gonna need a new carpet.
-							</div>
+						-->
+
+
+
+
+					<div class='pattern'></div>
+
+					<div class='write-container'>
+						<div class="write">
+							<a href="javascript:;" onclick="clickAttachFile();" class="write-link attach"></a>
+							<input type="file" id="attach-file" class="hideThis" accept="image/jpeg, image/jpg, image/png, image/gif" />
+							<input type="text" id="MessageTextField" class='wdt-emoji-bundle-enabled' />
+							<a id="sendMessage" href="javascript:;" class="write-link send"></a>
+
+							<!--<a href="javascript:;" class="write-link smiley"></a>-->
 						</div>
-						<div class="chat" data-chat="person4">
-							<div class="conversation-start">
-								<span>Yesterday, 4:20 PM</span>
-							</div>
-							<div class="bubble me">
-								Hey human!
-							</div>
-							<div class="bubble me">
-								Umm... Someone took a shit in the hallway.
-							</div>
-							<div class="bubble you">
-								... what.
-							</div>
-							<div class="bubble you">
-								Are you serious?
-							</div>
-							<div class="bubble me">
-								I mean...
-							</div>
-							<div class="bubble me">
-								It’s not that bad...
-							</div>
-						</div>
-						
-						
-						
-						
-						<div class='pattern'></div>
-						
-						<div class='write-container'>
-							<div class="write">
-								<a href="javascript:;" class="write-link attach"></a>
-								<input type="text" />
-								<a href="javascript:;" class="write-link send"></a>
-								<a href="javascript:;" class="write-link smiley"></a>
+					</div>
+					<div class='emoji-container'>
+						<div class="wdt-emoji-popup">
+							<a href="#" class="wdt-emoji-popup-mobile-closer"> &times; </a>
+							<div class="wdt-emoji-menu-content">
+								<div id="wdt-emoji-menu-header">
+									<a class="wdt-emoji-tab active" data-group-name="Recent"></a>
+									<a class="wdt-emoji-tab" data-group-name="People"></a>
+									<a class="wdt-emoji-tab" data-group-name="Nature"></a>
+									<a class="wdt-emoji-tab" data-group-name="Foods"></a>
+									<a class="wdt-emoji-tab" data-group-name="Activity"></a>
+									<a class="wdt-emoji-tab" data-group-name="Places"></a>
+									<a class="wdt-emoji-tab" data-group-name="Objects"></a>
+									<a class="wdt-emoji-tab" data-group-name="Symbols"></a>
+									<a class="wdt-emoji-tab" data-group-name="Flags"></a>
+									<a class="wdt-emoji-tab" data-group-name="Custom"></a>
+								</div>
+								<div class="wdt-emoji-scroll-wrapper">
+									<div id="wdt-emoji-menu-items">
+										<input id="wdt-emoji-search" type="text" placeholder="Search">
+										<h3 id="wdt-emoji-search-result-title">Search Results</h3>
+										<div class="wdt-emoji-sections"></div>
+										<div id="wdt-emoji-no-result">No emoji found</div>
+									</div>
+								</div>
+								<div id="wdt-emoji-footer">
+									<div id="wdt-emoji-preview">
+										<span id="wdt-emoji-preview-img"></span>
+										<div id="wdt-emoji-preview-text">
+											<span id="wdt-emoji-preview-name"></span><br>
+											<span id="wdt-emoji-preview-aliases"></span>
+										</div>
+									</div>
+
+									<div id="wdt-emoji-preview-bundle">
+										<span>Emoji Preview</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class='edit-container'>
-					<!-- 
-						<div id="code-mirror"></div>
-					-->
-						<div id="code-mirror"></div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class='edit-container'>
+					<div id='dropEditFile'>
+						<div class="dropEditFileContainer">
+							<div class="tick"></div>
+							<div class="upload-file"></div>
+							<div class="title">DRAG &amp; DROP</div>
+							<div class="smalltext">Or just click and browse files</div>
+							<input id="EditFile" type="file">
+						</div>
 					</div>
-					<div class='video-container'>
-						This is video
+					<div class="editSettings">
+						<button disabled class='edit-save' onclick='SaveEditorData();' id='saveEditFile'></button>
+						<button disabled class='edit-call' onclick='editCall(this);'></button>
+
+
+
+						<select id="editorLanguage" onchange="LanguageListChange();">
+							<option value="text/x-csrc|clike">C</option>
+							<option value="text/x-c++src|clike">C++</option>
+							<option value="text/x-go|go">Go</option>
+							<option value="application/xml|xml">HTML / XML</option>
+							<option value="text/x-java|clike">Java</option>
+							<option value="text/javascript|javascript">JavaScript</option>
+							<option value="text/x-lua|lua">Lua</option>
+							<option value="text/x-objectivec|clike">Objective C</option>
+							<option value="application/x-httpd-php|php">PHP</option>
+							<option value="text/x-python|python">Python</option>
+							<option value="text/x-ruby|ruby">Ruby</option>
+							<option value="text/x-mysql|sql">SQL</option>
+							<option value="text/x-styl|stylus">Stylus</option>
+							<option value="text/x-swift|swift">Swift</option>
+						</select>
+
+
+
 					</div>
+
+					<div id="code-mirror"></div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class='video-container'>
+					<div class="videos-you-me">
+						<video id="your-video" autoplay="" muted="false"></video>
+						<video id="my-video" muted="true" autoplay=""></video>
+					</div>
+					<div class="video-settings">
+						<!-- mute i poziv tj gasenje poziva -->
+						<button disabled class='mute-myself' onclick='videoMuteMyself(this)'></button>
+						<button disabled class='video-mute' onclick='videoMute(this);'></button>
+						<button disabled class='video-call' onclick='videoCall(this);' data-video-call="false"></button>
+					</div>
+				</div>
 			</div>
-			
-			
 		</div>
 	</div>
-    <!-- JavaScript -->
-    <script>window.$ = window.jQuery =  require('./js/jquery.js'); </script>
+	<!-- JavaScript -->
+	<script>
+		window.$ = window.jQuery = require('./lib/jquery.js');
+	</script>
 	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+
+	<!-- new testing stuff -->
+	<!--<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script src="js/voice.js"></script>-->
+	<script src="lib/peerjs.js"></script>
+	<script src="js/audio.js"></script>
+	<script src="js/communication.js"></script>
+	<script src="js/friendContent.js"></script>
 	<script src="js/ui.js"></script>
+	<script src="js/popup.js"></script>
+	<script src="lib/emoji.min.js"></script>
+	<script src="lib/wdt-emoji-bundle.min.js"></script>
+	<script src="js/emoji.js"></script>
+
+	<!--<script src="js/peer2peer.js"></script>-->
 
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

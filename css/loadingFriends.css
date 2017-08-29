@@ -1,0 +1,186 @@
+#loading-people {
+  height: 82px;
+  position: absolute;
+  z-index: 200;
+  top: calc( 50% - 52px);
+  left: calc( 50% - 10px);
+}
+
+.grid {
+  filter: url("#goo");
+  position: absolute;
+  display: block;
+}
+
+.circle {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.row {
+  display: inline-block;
+  position: absolute;
+}
+
+.one {
+  position: absolute;
+  left: -30px;
+  animation: moveOne 3s infinite 0.25s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+.two {
+  animation: moveTwo 3s infinite 0.3s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+.three {
+  position: absolute;
+  left: 30px;
+  top: 0px;
+  animation: moveThree 3s infinite 0.35s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+.four {
+  position: absolute;
+  left: -30px;
+  top: 30px;
+  animation: moveFour 3s infinite 0.4s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+.five {
+  position: absolute;
+  top: 30px;
+}
+
+.six {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  animation: moveSix 3s infinite 0.45s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+.seven {
+  position: absolute;
+  left: -30px;
+  top: 60px;
+  animation: moveSeven 3s infinite 0.5s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+.eight {
+  position: absolute;
+  top: 60px;
+  animation: moveEight 3s infinite 0.6s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+.nine {
+  position: absolute;
+  left: 30px;
+  top: 60px;
+  animation: moveNine 3s infinite 0.65s;
+  animation-timing-function: cubic-bezier(.14, .75, .2, 1.01);
+}
+
+@keyframes moveOne {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(30px, 30px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes moveTwo {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(0px, 30px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes moveThree {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(-30px, 30px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes moveFour {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(30px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes moveSix {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(-30px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes moveSeven {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(30px, -30px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes moveEight {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(0px, -30px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes moveNine {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  50% {
+    transform: translate3d(-30px, -30px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+}

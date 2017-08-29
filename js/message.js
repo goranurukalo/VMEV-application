@@ -1,3 +1,4 @@
+//ovo je dodato samo radi testiranja
 $('.chat[data-chat=person3]').addClass('active-chat');
 $('.person[data-chat=person3]').addClass('active');
 
