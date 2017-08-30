@@ -181,6 +181,10 @@ body {
   overflow-y: auto;
 }
 
+.container-fluid .left .searched-people:not(:empty) {
+  display: block;
+}
+
 .container-fluid .left .searched-people .search-person .email {
   color: #fff;
   margin-left: 5px;
@@ -206,12 +210,27 @@ body {
   transition: all .5s;
 }
 
+.container-fluid .left .searched-people .search-person button.dropFriend {
+  right: -110px;
+}
+
+.container-fluid .left .searched-people .search-person .addDropFriend button.dropFriend {
+  border-radius: 0;
+  background-color: red;
+  background-image: url('../images/app/remove.svg');
+}
+
+.container-fluid .left .searched-people .search-person:hover button.addFriend.twoButtons {
+  right: 50px;
+}
+
 .container-fluid .left .searched-people .search-person:hover button {
   right: 0;
 }
 
 .container-fluid .left .searched-people .search-person .removeFriend {
   background-image: url('../images/app/remove.svg');
+  background-color: red;
 }
 
 ::-webkit-scrollbar {

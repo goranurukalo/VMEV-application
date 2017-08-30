@@ -128,15 +128,16 @@ function CheckForFriendsRequests() {
 					"<span class='email'>" + element.email + "</span>" +
 					"</div>" +
 					"<div class='addDropFriend'>" +
-					"<button class='addFriend' onclick='addNewFriend( " + JSON.stringify(element) + " );'></button>" +
+					"<button class='addFriend twoButtons' onclick='addNewFriend( " + JSON.stringify(element) + " );'></button>" +
 					"<button class='dropFriend' onclick='dropfriendrequest( " + JSON.stringify(element) + " );'></button>" +
 					"</div>" +
 					"</li>";
 				$searched_people.append(peopleContactList);
 			}, this);
+			/*
 			$searched_people.css({
 				display: 'block'
-			});
+			});*/
 			let newHeight = 54 + 72 * (1 + (data.server.length >= 3 ? 3 : data.server.length));
 			$people.css({
 				height: 'calc( 100% - ' + newHeight + 'px)'
@@ -144,9 +145,10 @@ function CheckForFriendsRequests() {
 		},
 		error: function (err) {
 			if (err.status == 404) {
+				/*
 				$searched_people.css({
 					display: 'none'
-				});
+				});*/
 			} else {
 				popupAlert('Search friends online ', err);
 				console.log(err);
@@ -182,6 +184,15 @@ function __sync() {
 
 	} else {
 		popupYesNo('Synchronization', 'You have open connection with friend. If you continue, all connections will be closed.');
+		popupBindButtons(
+			function (e) {
+				ipcRenderer.send('sync', 1);
+			},
+			function (e) {
+				//close popup
+			}
+		);
+		/*
 		$(document).off('click', '#cd-buttons-yes');
 		$(document).on('click', '#cd-buttons-yes', function () {
 			ipcRenderer.send('sync', 1);
@@ -190,6 +201,7 @@ function __sync() {
 		$(document).on('click', '#cd-buttons-no', function (e) {
 			closePopup(e);
 		});
+		*/
 	}
 	//napraviti ono da baci alert da pita da li to zeli ili ne ? ako ima razgovora ili editovanja
 }

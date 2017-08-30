@@ -100,9 +100,8 @@ function regex() {
 			ipcRenderer.send('logged', data);
 		},
 		error: function (err) {
-			popupAlert('Ovo je title', err);
-
-			alert("err:" + JSON.stringify(err));
+			popupAlert(url.charAt(0).toUpperCase() + url.slice(1) + ' error', err.responseJSON.Server);
+			//alert("err:" + JSON.stringify(err));
 			$("#loading").fadeOut();
 			$("#container").fadeIn();
 		},
@@ -119,7 +118,6 @@ function regex() {
 		*/
 	});
 }
-
 //
 //	regex
 //

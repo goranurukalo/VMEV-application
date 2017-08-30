@@ -61,25 +61,28 @@ function popupBindButtons(fnOk, fnCancel, timer = 0) {
         $('#multipopup').attr('data-popupid', _t);
         setTimeout(function () {
             if (_t == $('#multipopup').attr('data-popupid')) {
+                ringtone.restart();
                 closePopup();
             }
         }, 60000);
 
-        $(document).on('click', '#cd-buttons-yes', function () {
+        $(document).on('click', '#cd-buttons-yes', function (e) {
             if (fnOk) {
-                fnOk();
+                fnOk(e);
                 $(document).off('click', '#cd-buttons-no');
                 $(document).off('click', '#cd-buttons-yes');
                 _popupFree = true;
             }
+            closePopup(e);
         });
-        $(document).on('click', '#cd-buttons-no', function () {
+        $(document).on('click', '#cd-buttons-no', function (e) {
             if (fnCancel) {
-                fnCancel();
+                fnCancel(e);
                 $(document).off('click', '#cd-buttons-no');
                 $(document).off('click', '#cd-buttons-yes');
                 _popupFree = true;
             }
+            closePopup(e);
         });
     } else if (timer < 70) {
         setTimeout(function () {

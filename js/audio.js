@@ -1,5 +1,6 @@
-function ReturnSoundObject(path) {
+function ReturnSoundObject(path, loop = false) {
     let s = new Audio(path);
+    s.loop = loop;
     return {
         play: function () {
             s.play();
@@ -15,5 +16,5 @@ function ReturnSoundObject(path) {
 }
 
 var messageNotificationSound = ReturnSoundObject('sound/message-notification.mp3');
-var callingFriend = ReturnSoundObject('sound/callingtone.mp3');
-var ringtone = ReturnSoundObject('sound/ringtone.mp3');
+var callingFriend = ReturnSoundObject('sound/callingtone.mp3', true);
+var ringtone = ReturnSoundObject('sound/ringtone.mp3', true);

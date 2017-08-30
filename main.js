@@ -119,9 +119,7 @@ ipcMain.on('sync', function (event, arg) {
 });
 
 ipcMain.on('SaveFile', function (event, arg) {
-	if (arg) {
-		console.log(arg);
-		/*
+	if (arg.fileData != null && arg.filePath != null) {
 		fs.writeFile(arg.filePath.replace('file:///', ''), arg.fileData, function (err) {
 			if (err) {
 				console.log('file save error');
@@ -130,7 +128,9 @@ ipcMain.on('SaveFile', function (event, arg) {
 				event.sender.send('EditorFileSaved', true);
 			}
 
-		});*/
+		});
+	} else {
+		console.log('file save error');
 	}
 });
 

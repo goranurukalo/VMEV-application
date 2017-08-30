@@ -340,9 +340,9 @@ function SearchForNewFriends() {
 	let $searched_people = $('.searched-people');
 	$searched_people.html('');
 	if (!(/^[\S\s]{2,254}$/).test(txt)) {
-		$searched_people.css({
+		/*$searched_people.css({
 			display: 'none'
-		});
+		});*/
 		$people.css({
 			height: 'calc( 100% - 54px)'
 		});
@@ -401,9 +401,9 @@ function SearchForNewFriends() {
 					"</li>";
 				$searched_people.append(peopleContactList);
 			}, this);
-			$searched_people.css({
+			/*$searched_people.css({
 				display: 'block'
-			});
+			});*/
 			let newHeight = 54 + 72 * (1 + (data.server.length >= 3 ? 3 : data.server.length));
 			$people.css({
 				height: 'calc( 100% - ' + newHeight + 'px)'
@@ -414,9 +414,9 @@ function SearchForNewFriends() {
 			if (err.status == 404) {
 				//uradi da nema user-a
 				//sakri ponovo onaj ul
-				$searched_people.css({
+				/*$searched_people.css({
 					display: 'none'
-				});
+				});*/
 			} else {
 				popupAlert('Search friends online ', err);
 			}
@@ -504,7 +504,8 @@ function ButtonSection(_type, _parent) {
 				CallButton.disabled = false;
 				CallButton.style.backgroundImage = "url('images/app/call-answer.svg')";
 				CallButton.setAttribute('data-video-call', 'false');
-				CallButton.className = 'voice-call';
+				//CallButton.className.classList.remove('active-call');
+				CallButton.classList.remove('active-call');
 				break;
 
 			default:
@@ -526,7 +527,8 @@ function ButtonSection(_type, _parent) {
 			case _buttons.callButton:
 				CallButton.disabled = false;
 				CallButton.style.backgroundImage = "url('images/app/call-answer.svg')";
-				CallButton.className += ' active-call';
+				//CallButton.className.classList.add('active-call');
+				CallButton.classList.add('active-call');
 				CallButton.setAttribute('data-video-call', 'true');
 				break;
 
@@ -680,17 +682,14 @@ function ReplaceProfilePictureWithUploadedOne(img) {
 
 function addNewFriend(data) {
 	let addData = {
-		requestFrom: _ThisUserID,
+		requestFrom: data._id,
 		_id: _ThisUserID,
-		requestTo: data._id
+		requestTo: _ThisUserID
 	};
-
 	AjaxSend(
 		'addfriend',
 		addData,
-		function (data) {
-			//success
-			//dodati user-a u listu prijatelja
+		function (_data) {
 			let imgurl = data.imgUrl;
 			if (imgurl) {
 				imgurl = 'https://vmev.herokuapp.com/' + imgurl;
@@ -705,17 +704,21 @@ function addNewFriend(data) {
 				"<span class='login-status status-offline'></span>" +
 				"<span class='status-text'>Offline</span>" +
 				"</div>" +
-
 				"<div class='single-person-notification'></div>" +
-
 				"</li>";
-			peopleMessages += "<div class='chat' data-chat='" + uiPeerID + "'></div>";
+
+			let peopleMessages = "<div class='chat' data-chat='" + uiPeerID + "'></div>";
 
 
-			$(".people").html(peopleContactList);
+			$(".people").append(newUser);
 			$(".message-container").prepend(peopleMessages);
-
+			$('.searched-people li[data-person =' + data._id + ']').remove();
 			// videti da li je online 
+			FriendsData.push({
+				_id: data._id,
+				peerID: uiPeerID
+			});
+			CheckConnectionWithFriend(uiPeerID, data._id);
 		},
 		function (err) {
 			//error
@@ -733,10 +736,14 @@ function removeNewFriend(data) {
 	AjaxSend(
 		'removefriend',
 		removeData,
-		function (data) {
+		function (_data) {
 			//success
-			//izbrisi prijatelja iz liste 
+			//izbrisi iz obe liste
 			$('.searched-people li[data-person =' + data._id + ']').remove();
+			$('.people li[data-person =' + data._id + ']').remove();
+			//ugasiti konekciju sa user-om
+			//to je dovoljno
+			CloseConnectionWithDeletedFriend(data.peerID);
 		},
 		function (err) {
 			//error
@@ -754,10 +761,11 @@ function sendfriendrequest(data) {
 	AjaxSend(
 		'sendfriendrequest',
 		sendData,
-		function (data) {
+		function (_data) {
 			//success
 			//poslati peer-om konekciju kao ali da bude friend request
-
+			popupAlert('Send friend request', "You have sent friend request successfully.");
+			SendNotificationForFriendRequest(_data.returnData.peerID);
 		},
 		function (err) {
 			//error
@@ -769,16 +777,15 @@ function sendfriendrequest(data) {
 function dropfriendrequest(data) {
 	let dropData = {
 		requestFrom: data._id,
-		_id: _ThisUserID
+		requestTo: _ThisUserID
 	};
-
 	AjaxSend(
 		'dropfriendrequest',
 		dropData,
 		function (data) {
 			//success
 			//izbrisati ga iz te nove liste
-			$('.searched-people li[data-person =' + data._id + ']').remove();
+			$('.searched-people li[data-person =' + dropData.requestFrom + ']').remove();
 		},
 		function (err) {
 			//error
