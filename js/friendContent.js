@@ -11,7 +11,6 @@ ipcRenderer.on('friendsResponse', (event, arg) => {
 	if (arg != null) {
 		_ThisUserID = arg._id.toString();
 		_ThisUserData = arg;
-		$('.right .top').text(_ThisUserData.email);
 		placeProfileImage();
 		$.ajax({
 			url: "https://vmev.herokuapp.com/getfriendspeer",

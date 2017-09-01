@@ -41,12 +41,6 @@ function ValidateInputFileExtension(extension) {
 
 
 function croppiePreperImg(file) {
-    /*
-    dataToImgFile(file, function (img) {
-        document.getElementById("croppieImg").setAttribute("src", img);
-        croppieFunction();
-    });
-    */
     let url = window.URL.createObjectURL(file);
     document.getElementById("croppieImg").setAttribute("src", url);
     croppieFunction();
@@ -73,12 +67,6 @@ function imgReadyToSend() {
 
 function imgPreview() {
     $uploadCrop.result('blob').then(function (blob) {
-        /*
-        dataToImgFile(blob, function (img) {
-            popupImage(img);
-        });
-        */
-        //let dataBlob = new Blob([new Uint8Array(blob)]);
         let url = window.URL.createObjectURL(blob);
         popupImage(url);
     });
@@ -115,15 +103,6 @@ function closeSuccessImage() {
     closeImgPopup();
     parent.closeDragDropFrame();
 }
-/*
-function dataToImgFile(file, callback) {
-    let reader = new FileReader();
-    reader.onload = function (e) {
-        callback(e.target.result, file.name);
-    }
-    reader.readAsDataURL(file);
-}
-*/
 
 function addLoader() {
     let loader = document.getElementById("loader")

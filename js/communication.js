@@ -272,6 +272,7 @@ function connect(c) {
                     videoButtons.DisableAllButtons();
                     CloseLocalStream();
                     _acctiveCallInfo.RestartInfo();
+                    $('.right .top .GoToVideo').attr('disabled', true)
                 } else if (data.message === 'rejectedCall') {
                     //VideoCallButtonStart(); //put video button to state: start [call] 
                     callingFriend.restart();
@@ -281,6 +282,7 @@ function connect(c) {
                     videoButtons.DisableAllButtons();
                     CloseLocalStream();
                     _acctiveCallInfo.RestartInfo();
+                    $('.right .top .GoToVideo').attr('disabled', true)
                 } else {
                     //pitaj user-a da li zeli da ima video call sa ovom osobom
                     let el = $('.person[data-peerid = ' + c.peer + ']');
@@ -310,6 +312,7 @@ function connect(c) {
                                     VideoCallUser(c.peer);
                                 } else {
                                     _acctiveCallInfo.RestartInfo();
+                                    $('.right .top .GoToVideo').attr('disabled', true)
                                     CloseLocalStream();
                                     videoButtons.DisableAllButtons();
                                 }
@@ -317,6 +320,7 @@ function connect(c) {
                             _acctiveCallInfo.userPeerId = c.peer;
                             _acctiveCallInfo.type = 'video';
                             _acctiveCallInfo.muted = false;
+                            $('.right .top .GoToVideo').attr('disabled', false)
                         },
                         function (e) {
                             ringtone.restart();
@@ -392,12 +396,14 @@ function connect(c) {
                     voiceButtons.DisableAllButtons();
                     CloseLocalStream();
                     _acctiveCallInfo.RestartInfo();
+                    $('.right .top .GoToVoice').attr('disabled', true)
                 } else if (data.message === 'rejectedCall') {
                     callingFriend.restart();
                     popupAlert('Voice call', 'Call was rejected by the user');
                     voiceButtons.DisableAllButtons();
                     CloseLocalStream();
                     _acctiveCallInfo.RestartInfo();
+                    $('.right .top .GoToVoice').attr('disabled', true)
                 } else {
                     let el = $('.person[data-peerid = ' + c.peer + ']');
                     ringtone.play();
@@ -427,6 +433,7 @@ function connect(c) {
                                     VoiceCallUser(c.peer);
                                 } else {
                                     _acctiveCallInfo.RestartInfo();
+                                    $('.right .top .GoToVoice').attr('disabled', true)
                                     CloseLocalStream();
                                     voiceButtons.DisableAllButtons();
 
@@ -435,11 +442,13 @@ function connect(c) {
                             _acctiveCallInfo.userPeerId = c.peer;
                             _acctiveCallInfo.type = 'voice';
                             _acctiveCallInfo.muted = false;
+                            $('.right .top .GoToVoice').attr('disabled', false)
                         },
                         function (e) {
                             ringtone.restart();
                             RejectVideoCall(c.peer);
                             _acctiveCallInfo.RestartInfo();
+                            $('.right .top .GoToVoice').attr('disabled', true)
                         }
                     );
 
@@ -508,6 +517,7 @@ function connect(c) {
                     callingFriend.restart();
                     popupAlert('Edit call', 'Call was rejected by the user');
                     _activeEditInfo.ResetInfo();
+                    $('.right .top .GoToEdit').attr('disabled', true)
                     $('.edit-save').attr('disabled', true);
                     $('.edit-call').removeClass('active-call');
                 } else {
@@ -537,6 +547,7 @@ function connect(c) {
                             }, c.peer);
                             //pozovi fju da napravis editor
                             _activeEditInfo.userPeerId = c.peer;
+                            $('.right .top .GoToEdit').attr('disabled', false)
                         },
                         function (e) {
                             ringtone.restart();
@@ -544,7 +555,8 @@ function connect(c) {
                                 type: 'askForEditCall',
                                 message: 'rejectedCall'
                             }, c.peer);
-                            _acctiveCallInfo.RestartInfo();
+                            _activeEditInfo.RestartInfo();
+                            $('.right .top .GoToEdit').attr('disabled', true)
                         }
                     );
                     /*
@@ -593,6 +605,7 @@ function connect(c) {
                     message: _editFile
                 }, c.peer);
                 _activeEditInfo.userPeerId = c.peer;
+                $('.right .top .GoToEdit').attr('disabled', false)
                 _editFile.languageDropList = $('#editorLanguage').attr('disabled', true).prop('selectedIndex');
                 PrepareForEditCall(_editFile);
                 $('.edit-save').attr('disabled', false);
@@ -603,6 +616,7 @@ function connect(c) {
                 ringtone.restart();
                 PrepareForEditCall(data.message);
                 _activeEditInfo.userPeerId = c.peer;
+                $('.right .top .GoToEdit').attr('disabled', false)
                 _editFile = data.message;
                 editButton.attr('disabled', false);
                 $('.edit-call').addClass('active-call');
@@ -614,6 +628,7 @@ function connect(c) {
                     $('#code-mirror').css('z-index', -1).html('');
                     if (_activeEditInfo) {
                         _activeEditInfo.ResetInfo();
+                        $('.right .top .GoToEdit').attr('disabled', true)
                     }
 
                     $('.edit-save').attr('disabled', true);
@@ -639,6 +654,7 @@ function connect(c) {
                 $('#code-mirror').css('z-index', -1).html('');
                 if (_activeEditInfo) {
                     _activeEditInfo.ResetInfo();
+                    $('.right .top .GoToEdit').attr('disabled', true)
                 }
 
                 $('.edit-save').attr('disabled', true);
@@ -705,11 +721,13 @@ peer.on('call', function (call) {
         //video call
         AnswerVideoCall(call);
         _acctiveCallInfo.type = 'video';
+        $('.right .top .GoToVideo').attr('disabled', false)
 
     } else {
         //audio call
-        //AnswerVoiceCall(call);
+        AnswerVoiceCall(call);
         _acctiveCallInfo.type = 'audio';
+        $('.right .top .GoToVoice').attr('disabled', false)
     }
     //console.log(call);
     _acctiveCallInfo.userPeerId = call.peer;
@@ -742,6 +760,7 @@ function AnswerVideoCall(call) { //step3
             }, 500);
         }
         _acctiveCallInfo.RestartInfo();
+        $('.right .top .GoToVideo').attr('disabled', true)
     });
 }
 
@@ -789,6 +808,7 @@ function AnswerVoiceCall(call) {
             }, 500);
         }
         _acctiveCallInfo.RestartInfo();
+        $('.right .top .GoToVoice').attr('disabled', true)
     });
 } //step3
 function PrepareForVoiceCall() {
@@ -1010,8 +1030,7 @@ function videoCall(btn) {
                 videoButtons.DisableAllButtons();
                 DoVideoHangUp();
             }
-            //}, 55000);
-        }, 10000);
+        }, 58000);
         /*
         btn.style.backgroundImage = "url('images/app/end-call.png')";
         $(btn).attr('data-video-call', 'true').css('background-color', '#ff0000');
@@ -1038,13 +1057,13 @@ function editCall(btn) {
         callingFriend.play();
     } else {
         //reject call
-        //zatvori ovo sranje 
         //prikazi mu ono pre
         SendObjToActivePeer({
             type: "rejectCalls",
             message: "edit"
         }, _activeEditInfo.userPeerId);
         _activeEditInfo.ResetInfo();
+        $('.right .top .GoToEdit').attr('disabled', true)
         $('.edit-call').removeClass('active-call');
         $('.edit-save').attr('disabled', true);
         $('#editorLanguage').attr('disabled', false).prop('selectedIndex', 0);
@@ -1070,7 +1089,7 @@ function PrepareForEditCall(data) {
     cm.innerHTML = '<iframe id="iframeEdit" src="edit.html" ></iframe>';
     $editor = $("#iframeEdit")[0].contentWindow;
     //$editor.PrepareEditorCM(2);
-    //postavi podatke i ta sranja 
+    //postavi podatke
 }
 
 function SaveEditorData() {

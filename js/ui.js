@@ -423,7 +423,6 @@ function SearchForNewFriends() {
 		},
 		beforeSend: function () {
 			//upaliti animaciju
-			//dodati ono sranje kao prepreku
 			$loadingPeople.css('display', 'block');
 			$people.append("<li class='spacer'></li>");
 		},
@@ -434,13 +433,6 @@ function SearchForNewFriends() {
 
 	});
 }
-
-
-
-
-
-
-
 
 function ButtonSection(_type, _parent) {
 	let type = _type,
@@ -575,10 +567,6 @@ function UploadProfilePicture(img, imgName) {
 		processData: false,
 		success: function (data) {
 			$iframeUploadCrop.uploadCropSuccess();
-			// zaustavi animaciju
-			// ugasi upload slike
-			//otvoriti loader i onda kad se zavrsi otvoriti popup image ali modifikovan da pise success
-			// i kad stisne ok onda mu gasi sve i stavlja ikonicu tamo gde treba 
 		},
 		error: function (err) {
 			popupAlert('Ovo je error za upload profilne slike', err);
@@ -859,5 +847,27 @@ function sendNewProfileData() {
 			'visibilty': 'visible',
 			'color': 'red'
 		}).text('Your inputs are not valid');
+	}
+}
+
+function GoToEditUser() {
+	$("li[data-tool='edit']").trigger('mousedown');
+	GoToUser(_activeEditInfo.userPeerId);
+}
+
+function GoToVoiceUser() {
+	$("li[data-tool='video']").trigger('mousedown');
+	GoToUser(_acctiveCallInfo.userPeerId);
+}
+
+function GoToVideoUser() {
+	$("li[data-tool='video']").trigger('mousedown');
+	GoToUser(_acctiveCallInfo.userPeerId);
+}
+
+function GoToUser(peer) {
+	let thisUser = $("li.person[data-peerid='" + peer + "']");
+	if (thisUser) {
+		thisUser.trigger('mousedown');
 	}
 }

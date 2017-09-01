@@ -345,6 +345,9 @@ body {
   z-index: 1000;
   background-color: white;
   box-shadow: 0px 3px 0px rgba(21, 21, 21, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .container-fluid .right .chat {
@@ -875,6 +878,7 @@ object {
   background-size: 36px;
   background-repeat: no-repeat;
   background-position: 12px;
+  cursor: pointer;
 }
 
 .video-container .video-settings button:focus,
@@ -886,11 +890,6 @@ object {
 .voice-container .voice-settings button:active {
   box-shadow: 0px 2px #2b92c2;
   transform: translateY(3px);
-}
-
-.video-container .video-settings button:hover,
-.voice-container .voice-settings button:hover {
-  cursor: pointer;
 }
 
 .video-container .video-settings .video-mute,
@@ -1215,6 +1214,48 @@ object {
 
 .cd-form div {
   margin-bottom: 6px;
+}
+
+.right .top button {
+  width: 25%;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 33px;
+  color: black;
+  background-color: #00b0ff;
+  box-shadow: 0px 4px #2b92c2;
+  border: none;
+  outline: none;
+  background-size: 36px;
+  background-repeat: no-repeat;
+  background-position: 12px;
+  cursor: pointer;
+}
+
+.right .top button:disabled {
+  background-color: #AAB2BD;
+  box-shadow: 0px 4px #656D78;
+}
+
+.right .top button:active {
+  box-shadow: 0px 2px #2b92c2;
+  transform: translateY(3px);
+}
+
+.right .top .GoToEdit {
+  background-image: url('../images/app/edit.svg');
+  background-position: 50%;
+}
+
+.right .top .GoToVoice {
+  background-image: url('../images/app/voice.svg');
+  background-position: 50%;
+}
+
+.right .top .GoToVideo {
+  background-image: url('../images/app/video.svg');
+  background-position: 50%;
 }
 
 @keyframes messageanimation {

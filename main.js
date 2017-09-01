@@ -52,7 +52,7 @@ function createWindow() {
 		});
 
 		// Open the DevTools.
-		//mainWin.webContents.openDevTools()
+		mainWin.webContents.openDevTools()
 
 		mainWin.on('closed', () => {
 			mainWin = null
