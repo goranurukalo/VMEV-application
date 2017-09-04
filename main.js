@@ -67,6 +67,7 @@ function createWindow() {
 			icon: path.join(__dirname, 'images/icon/64x64.png')
 		});
 		//win.setMenu(null);
+		//win.loadURL('https://skyway.io/examples/edge-examples/#');
 		win.loadURL(url.format({
 			pathname: path.join(__dirname, 'authentication.html'),
 			protocol: 'file:',

@@ -32,9 +32,7 @@ ipcRenderer.on('friendsResponse', (event, arg) => {
 						peerID: uiPeerID
 					});
 					let imgurl = element.imgUrl;
-					if (imgurl) {
-						imgurl = 'https://vmev.herokuapp.com/' + imgurl;
-					} else {
+					if (!imgurl) {
 						imgurl = 'images/app/default_user.png';
 					}
 
@@ -79,7 +77,8 @@ ipcRenderer.on('friendsResponse', (event, arg) => {
 					*/
 			},
 			error: function (err) {
-				alert("err:" + JSON.stringify(err));
+				//alert("err:" + JSON.stringify(err));
+				popupAlert('Friend list', 'Your friend list is empty. Type email in search and find friends.');
 			},
 			beforeSend: function () {
 				$("#loading-people").fadeIn();
@@ -114,9 +113,7 @@ function CheckForFriendsRequests() {
 				let uiPeerID = element.peerID || element._id;
 				let imgurl = element.imgUrl;
 
-				if (imgurl) {
-					imgurl = 'https://vmev.herokuapp.com/' + imgurl;
-				} else {
+				if (!imgurl) {
 					imgurl = 'images/app/default_user.png';
 				}
 
@@ -170,7 +167,7 @@ ipcRenderer.on('uploadProfileImage', (event, arg) => {
 
 function placeProfileImage() {
 	if (_ThisUserData.imgUrl)
-		$("#userProfileImg").attr("src", 'https://vmev.herokuapp.com/' + _ThisUserData.imgUrl);
+		$("#userProfileImg").attr("src", _ThisUserData.imgUrl);
 }
 
 function GetThisUserId() {

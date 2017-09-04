@@ -93,7 +93,7 @@
 
 				<div class='voice-container'>
 					<div class="videos-you-me hideThis">
-						<video id="your-audio" autoplay="" muted="false"></video>
+						<video id="your-audio" autoplay=""></video>
 					</div>
 
 					<div class="voice-body">
@@ -106,6 +106,7 @@
 						<button disabled class='mute-myself' onclick='voiceMuteMyself(this)'></button>
 						<button disabled class='voice-mute' onclick='voiceMute(this);'></button>
 						<button disabled class='voice-call' onclick='voiceCall(this);' data-voice-call="false"></button>
+						<!--<select id='video-mice-select' class='select-settings'></select>-->
 					</div>
 				</div>
 				<div class='message-container'>
@@ -175,9 +176,10 @@
 						<button disabled class='edit-save' onclick='SaveEditorData();' id='saveEditFile'></button>
 						<button disabled class='edit-call' onclick='editCall(this);'></button>
 
-						<select id="editorLanguage" onchange="LanguageListChange();">
+						<select id="editorLanguage" class='select-settings' onchange="LanguageListChange();">
 							<option value="text/x-csrc|clike">C</option>
 							<option value="text/x-c++src|clike">C++</option>
+							<option value="text/x-csharp|clike">C#</option>
 							<option value="text/x-go|go">Go</option>
 							<option value="application/xml|xml">HTML / XML</option>
 							<option value="text/x-java|clike">Java</option>
@@ -197,13 +199,14 @@
 
 				<div class='video-container'>
 					<div class="videos-you-me">
-						<video id="your-video" autoplay="" muted="false"></video>
+						<video id="your-video" autoplay=""></video>
 						<video id="my-video" muted="true" autoplay=""></video>
 					</div>
 					<div class="video-settings">
 						<button disabled class='mute-myself' onclick='videoMuteMyself(this)'></button>
 						<button disabled class='video-mute' onclick='videoMute(this);'></button>
 						<button disabled class='video-call' onclick='videoCall(this);' data-video-call="false"></button>
+						<!--<select id='video-mice-select' class='select-settings'></select>-->
 					</div>
 				</div>
 			</div>

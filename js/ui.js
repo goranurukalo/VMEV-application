@@ -145,14 +145,16 @@ function voiceRender() {
 		// ne mozes pricati ako pricas
 		document.styleSheets[4].cssRules[0].style.visibility = 'visible';
 
-		if (chosenPerson == _acctiveCallInfo.userPeerId && _acctiveCallInfo.type == 'voice') {
+		if (chosenPerson == _acctiveCallInfo.userPeerId && (_acctiveCallInfo.type == 'voice' || _acctiveCallInfo.type == 'audio')) {
 			voiceButtons.ActivateButton(voiceButtons.buttons.callButton);
-
+			let yourAudio = document.getElementById('your-voice');
 			if (_acctiveCallInfo.muted) {
 				//$("#your-video").attr('muted', 'true');
+				yourAudio.muted = true;
 				voiceButtons.ActivateButton(voiceButtons.buttons.muteYouButton);
 			} else {
 				//$("#your-video").attr('muted', 'false');
+				yourAudio.muted = false;
 				voiceButtons.NormalizeButton(voiceButtons.buttons.muteYouButton);
 			}
 
@@ -267,14 +269,14 @@ function videoRender() {
 			/*
 			let m = document.getElementsByClassName('video-mute')[0];
 			m.disabled = false;
-*/
-
+			*/
+			let yourVid = document.getElementById('your-video');
 			if (_acctiveCallInfo.muted) {
-				$("#your-video").attr('muted', 'true');
+				yourVid.muted = true;
 				//m.style.backgroundImage = "url('images/app/muted.png')";
 				videoButtons.ActivateButton(videoButtons.buttons.muteYouButton);
 			} else {
-				$("#your-video").attr('muted', 'false');
+				yourVid.muted = false;
 				//m.style.backgroundImage = "url('images/app/speaker.png')";
 				videoButtons.NormalizeButton(videoButtons.buttons.muteYouButton);
 
@@ -365,9 +367,7 @@ function SearchForNewFriends() {
 				let imgurl = element.imgUrl;
 				let addRemoveButton = "";
 
-				if (imgurl) {
-					imgurl = 'https://vmev.herokuapp.com/' + imgurl;
-				} else {
+				if (!imgurl) {
 					imgurl = 'images/app/default_user.png';
 				}
 
@@ -496,6 +496,7 @@ function ButtonSection(_type, _parent) {
 				CallButton.disabled = false;
 				CallButton.style.backgroundImage = "url('images/app/call-answer.svg')";
 				CallButton.setAttribute('data-video-call', 'false');
+				CallButton.setAttribute('data-voice-call', 'false');
 				//CallButton.className.classList.remove('active-call');
 				CallButton.classList.remove('active-call');
 				break;
@@ -522,6 +523,7 @@ function ButtonSection(_type, _parent) {
 				//CallButton.className.classList.add('active-call');
 				CallButton.classList.add('active-call');
 				CallButton.setAttribute('data-video-call', 'true');
+				CallButton.setAttribute('data-voice-call', 'true');
 				break;
 
 			default:
@@ -553,10 +555,11 @@ function closeDragDropFrame() {
 	$('#UploadCropImage').remove();
 }
 
-function UploadProfilePicture(img, imgName) {
+function UploadProfilePicture(img) {
 	let formdata = new FormData();
 	formdata.append("_id", GetThisUserId());
 	formdata.append("avatar", img);
+
 	let $iframeUploadCrop = $("#iframeUploadCrop")[0].contentWindow;
 	$.ajax({
 		url: "https://vmev.herokuapp.com/uploadprofilepicture",
@@ -569,12 +572,11 @@ function UploadProfilePicture(img, imgName) {
 			$iframeUploadCrop.uploadCropSuccess();
 		},
 		error: function (err) {
-			popupAlert('Ovo je error za upload profilne slike', err);
+			console.log(err);
+			popupAlert('Ovo je error za upload profilne slike', err.responseJSON.error);
 			closeDragDropFrame();
-			//$iframeUploadCrop.removeLoader();
 		},
 		beforeSend: function () {
-			//pokreni animaciju
 			$iframeUploadCrop.addLoader();
 		}
 	});
@@ -636,6 +638,7 @@ function FileSelectHandler(e) {
 		editButton.attr("disabled", false);
 	}
 	_editFile.InsertFile(file);
+
 	if (!_activeEditInfo.userPeerId) {
 		_activeEditInfo.filePath = file.path || null;
 	}
@@ -647,7 +650,11 @@ function ValidateEditInputFileExtension(extension) {
 }
 
 function InitEditor(fn) {
-	fn(_editFile);
+	if (_activeEditInfo.dataForEditor) {
+		fn(_activeEditInfo.dataForEditor);
+	} else {
+		fn(_editFile);
+	}
 }
 
 function GetLanguageFromList() {
@@ -679,9 +686,7 @@ function addNewFriend(data) {
 		addData,
 		function (_data) {
 			let imgurl = data.imgUrl;
-			if (imgurl) {
-				imgurl = 'https://vmev.herokuapp.com/' + imgurl;
-			} else {
+			if (!imgurl) {
 				imgurl = 'images/app/default_user.png';
 			}
 			let uiPeerID = data.peerID || data._id;
@@ -726,11 +731,15 @@ function removeNewFriend(data) {
 		removeData,
 		function (_data) {
 			//success
-			//izbrisi iz obe liste
 			$('.searched-people li[data-person =' + data._id + ']').remove();
 			$('.people li[data-person =' + data._id + ']').remove();
-			//ugasiti konekciju sa user-om
-			//to je dovoljno
+
+			for (let i = 0; i < FriendsData.length; i++) {
+				if (FriendsData[i]._id == data._id) {
+					FriendsData.splice(i, 1); //slice
+					break;
+				}
+			}
 			CloseConnectionWithDeletedFriend(data.peerID);
 		},
 		function (err) {
@@ -856,7 +865,7 @@ function GoToEditUser() {
 }
 
 function GoToVoiceUser() {
-	$("li[data-tool='video']").trigger('mousedown');
+	$("li[data-tool='voice']").trigger('mousedown');
 	GoToUser(_acctiveCallInfo.userPeerId);
 }
 

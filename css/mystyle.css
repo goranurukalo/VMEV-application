@@ -803,11 +803,13 @@ object {
 
 .video-container .video-settings,
 .voice-container .voice-settings {
-  position: absolute;
   bottom: 0;
   height: 70px;
-  display: block;
+  position: absolute;
+  display: flex;
+  justify-content: center;
   text-align: center;
+  z-index: 10;
 }
 
 .voice-container .voice-body {
@@ -879,6 +881,7 @@ object {
   background-repeat: no-repeat;
   background-position: 12px;
   cursor: pointer;
+  margin-right: 16px;
 }
 
 .video-container .video-settings button:focus,
@@ -894,7 +897,6 @@ object {
 
 .video-container .video-settings .video-mute,
 .voice-container .voice-settings .voice-mute {
-  margin-right: 16px;
   background-image: url('../images/app/sound-on.svg');
   background-position: 50%;
   background-size: 74px;
@@ -902,7 +904,6 @@ object {
 
 .video-container .video-settings .mute-myself,
 .voice-container .voice-settings .mute-myself {
-  margin-right: 16px;
   background-image: url('../images/app/voice.svg');
 }
 
@@ -1140,19 +1141,6 @@ object {
   height: 48px;
 }
 
-.editSettings #editorLanguage {
-  padding: 12px;
-  font-size: 16px;
-  margin-top: 6px;
-  height: 54px;
-  padding-right: 0;
-  outline-color: #00b0ff;
-  font-weight: 800;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-}
-
 .editSettings .edit-save {
   background-size: 28px;
   background-position: 50%;
@@ -1182,14 +1170,14 @@ object {
   border: 0 none;
 }
 
-.editSettings select {
+select {
   background: #00b0ff;
   border: 0;
   border-bottom: 0.25em solid #2b92c2;
   color: white;
 }
 
-.editSettings select:after {
+select:after {
   border-color: #2b92c2;
   padding: 5px 0px;
 }
@@ -1256,6 +1244,19 @@ object {
 .right .top .GoToVideo {
   background-image: url('../images/app/video.svg');
   background-position: 50%;
+}
+
+.select-settings {
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 6px;
+  height: 54px;
+  padding-right: 0;
+  outline-color: #00b0ff;
+  font-weight: 800;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
 }
 
 @keyframes messageanimation {
