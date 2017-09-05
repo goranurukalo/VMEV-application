@@ -54,27 +54,6 @@ ipcRenderer.on('friendsResponse', (event, arg) => {
 				$(".message-container").prepend(peopleMessages);
 				//arg = _id , data.server = array.friends
 				ConnectWithFriends(_ThisUserID, data.server);
-
-
-				//ovde je bolje da mu ja samo posaljem spisak ljudi koje treba da dohvati i da mi vrati taj objekat
-				//radi se foreach i onda se odradju ova stavka
-
-				/*
-					// ovo je samo radi testiranja
-					peopleMessages += "<div class='chat' data-chat='" + element._id + "'>" +
-						"<div class='conversation-start'>" +
-						"<span>Today, 6:48 AM</span>" +
-						"</div>" +
-						"<div class='bubble you'>Hello," +
-						"</div>" +
-						"<div class='bubble you'>it's me." +
-						"</div>" +
-						"<div class='bubble you'>I was wondering..." +
-						"</div>" +
-						"</div>";
-
-
-					*/
 			},
 			error: function (err) {
 				//alert("err:" + JSON.stringify(err));
@@ -188,18 +167,7 @@ function __sync() {
 				//close popup
 			}
 		);
-		/*
-		$(document).off('click', '#cd-buttons-yes');
-		$(document).on('click', '#cd-buttons-yes', function () {
-			ipcRenderer.send('sync', 1);
-		});
-		$(document).off('click', '#cd-buttons-no');
-		$(document).on('click', '#cd-buttons-no', function (e) {
-			closePopup(e);
-		});
-		*/
 	}
-	//napraviti ono da baci alert da pita da li to zeli ili ne ? ako ima razgovora ili editovanja
 }
 
 function UseIcpRenderer(route, data) {

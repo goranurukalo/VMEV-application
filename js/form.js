@@ -77,8 +77,6 @@ function regex() {
 		return false;
 	}
 
-
-
 	if (action == "signup" && $("#pass").val() != $("#repass").val()) {
 		//
 		//stoping action
@@ -109,13 +107,6 @@ function regex() {
 			$("#loading").fadeIn();
 			$("#container").fadeOut();
 		}
-		/*
-		,
-		complete: function(){
-			$("#loading").fadeOut();
-			$("#container").fadeIn();
-		}
-		*/
 	});
 }
 //
@@ -186,13 +177,3 @@ $(document).keydown(function (e) {
 		}
 	}
 });
-
-/*
-
-// WORKS
-
-ipcRenderer.send('async', 5);
-
-ipcRenderer.on('async-reply' , function(event, arg){
-	console.log(arg);
-});*/

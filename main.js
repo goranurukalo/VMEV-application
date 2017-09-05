@@ -52,7 +52,7 @@ function createWindow() {
 		});
 
 		// Open the DevTools.
-		mainWin.webContents.openDevTools()
+		//mainWin.webContents.openDevTools()
 
 		mainWin.on('closed', () => {
 			mainWin = null
@@ -86,14 +86,6 @@ function createWindow() {
 	}
 }
 
-/*
-ipcMain.on('async' , function(event, arg){
-	
-	// works
-	event.sender.send('async-reply', (arg*2));
-	
-});
-*/
 ipcMain.on('logged', function (event, arg) {
 	userData = arg;
 	logged = true;

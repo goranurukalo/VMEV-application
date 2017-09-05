@@ -25,15 +25,6 @@ peer.on('error', function (err) {
   console.log(err);
 })
 
-
-
-
-
-// |
-// | ovde dole idu stavri za prijem konekcije , odnosno oni tipovi kao sto su video call itd ... 
-// V
-
-
 // Await connections from others
 peer.on('connection', connect);
 
@@ -73,7 +64,7 @@ function connect(c) {
   } else if (c.label === 'file') {
     c.on('data', function (data) {
       // If we're getting a file, create a URL for it.
-	  console.log(data);
+      console.log(data);
       if (data.constructor === ArrayBuffer) {
         var dataView = new Uint8Array(data);
         var dataBlob = new Blob([dataView]);
@@ -86,15 +77,6 @@ function connect(c) {
   connectedPeers[c.peer] = 1;
 }
 
-
-
-
-
-
-
-
-
-
 $(document).ready(function () {
   // Prepare file drop box.
   var box = $('#box');
@@ -103,7 +85,6 @@ $(document).ready(function () {
   box.on('drop', function (e) {
     e.originalEvent.preventDefault();
     var file = e.originalEvent.dataTransfer.files[0];
-	console.log(file);
     eachActiveConnection(function (c, $c) { // ovde treba da kazem samo za jednog a ne da saljem svima 
       if (c.label === 'file') {
         c.send(file);
@@ -148,14 +129,6 @@ $(document).ready(function () {
     }
     connectedPeers[requestedPeer] = 1;
   });
-
-
-
-
-
-
-
-
 
   // Close a connection.
   $('#close').click(function () {
@@ -202,16 +175,6 @@ $(document).ready(function () {
   // Show browser version
   $('#browsers').text(navigator.userAgent);
 });
-
-
-
-
-
-
-
-
-
-
 
 // Make sure things clean up properly.
 window.onunload = window.onbeforeunload = function (e) {

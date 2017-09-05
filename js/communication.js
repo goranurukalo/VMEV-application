@@ -30,16 +30,7 @@ var _activeEditInfo = {
     },
 };
 
-//navigator.getUserMedia = navigator.webkitGetUserMedia; //navigator.getUserMedia || navigator.webkitGetUserMedia;
-/*
-navigator.mediaDevices.getUserMedia({
-    audio: {
-        deviceId: {
-            exact: 'default'
-        }
-    },video: true
-});
-*/
+
 var peer = new Peer({
     // Set API key for cloud server (you don't need this if you're running your
     // own.
@@ -344,61 +335,6 @@ function connect(c) {
                             RejectVideoCall(c.peer);
                         }
                     );
-                    /*
-                                        $(document).off('click', '#cd-buttons-yes');
-                                        $(document).on('click', '#cd-buttons-yes', function (e) {
-                                            //document.getElementById("cd-buttons-yes").onclick = function () {
-                                            //napravi poziv
-                                            //prebaci user-a da gleda taj video call ako se javio
-                                            ringtone.restart();
-                                            if (!$("li.person[data-peerid='" + c.peer + "']")) {
-                                                RejectVideoCall(c.peer);
-                                                return;
-                                            }
-                                            PrepareForVideoCall();
-
-                                            $("li[data-tool='video']").trigger('mousedown');
-                                            let thisUser = $("li.person[data-peerid='" + c.peer + "']");
-                                            thisUser.trigger('mousedown');
-
-                                            //let btn = document.getElementsByClassName('video-call')[0];
-                                            //btn.style.backgroundImage = "url('images/app/end-call.png')";
-                                            //$(btn).attr('data-video-call', 'true').css('background-color', '#ff0000');
-
-                                            //document.getElementsByClassName('video-mute')[0].disabled = false;
-
-
-                                            videoButtons.NormalizeAllButtons();
-                                            videoButtons.ActivateButton(videoButtons.buttons.callButton);
-
-                                            closePopup(e);
-                                            setTimeout(function () {
-                                                if (thisUser.find(".status-online").length != 0) {
-                                                    VideoCallUser(c.peer);
-                                                } else {
-                                                    _acctiveCallInfo.RestartInfo();
-                                                    CloseLocalStream();
-                                                    videoButtons.DisableAllButtons();
-
-                                                    //document.getElementsByClassName('video-call')[0].disabled = true;
-                                                    //document.getElementsByClassName('video-call')[0].style = '';
-                                                    //document.getElementsByClassName('video-mute')[0].disabled = true;
-
-
-                                                }
-                                            }, 2000);
-                                            _acctiveCallInfo.userPeerId = c.peer;
-                                            _acctiveCallInfo.type = 'video';
-                                            _acctiveCallInfo.muted = false;
-                                        });
-                                        $(document).off('click', '#cd-buttons-no');
-                                        $(document).on('click', '#cd-buttons-no', function (e) {
-                                            //document.getElementById("cd-buttons-no").onclick = function () {
-                                            ringtone.restart();
-                                            RejectVideoCall(c.peer);
-                                            closePopup(e);
-                                        });
-                    */
                 }
             } else if (data.type === 'askForVoiceCall') {
                 if (_acctiveCallInfo.userPeerId != null) {
@@ -468,52 +404,6 @@ function connect(c) {
                             $('.right .top .GoToVoice').attr('disabled', true)
                         }
                     );
-
-                    /*
-                    $(document).off('click', '#cd-buttons-yes');
-                    $(document).on('click', '#cd-buttons-yes', function (e) {
-                        ringtone.restart();
-                        if (!$("li.person[data-peerid='" + c.peer + "']")) {
-                            RejectVideoCall(c.peer);
-                            return;
-                        }
-                        PrepareForVoiceCall();
-
-                        $("li[data-tool='voice']").trigger('mousedown');
-                        let thisUser = $("li.person[data-peerid='" + c.peer + "']");
-                        thisUser.trigger('mousedown');
-
-                        voiceButtons.NormalizeAllButtons();
-                        voiceButtons.ActivateButton(voiceButtons.buttons.callButton);
-
-                        closePopup(e);
-                        setTimeout(function () {
-                            if (thisUser.find(".status-online").length != 0) {
-                                VoiceCallUser(c.peer);
-                            } else {
-                                _acctiveCallInfo.RestartInfo();
-                                CloseLocalStream();
-                                voiceButtons.DisableAllButtons();
-
-                            }
-                        }, 2000);
-                        _acctiveCallInfo.userPeerId = c.peer;
-                        _acctiveCallInfo.type = 'voice';
-                        _acctiveCallInfo.muted = false;
-                    });
-                    $(document).off('click', '#cd-buttons-no');
-                    $(document).on('click', '#cd-buttons-no', function (e) {
-                        ringtone.restart();
-                        RejectVideoCall(c.peer);
-                        closePopup(e);
-                    });
-*/
-
-
-
-
-
-
                 }
             } else if (data.type === 'askForEditCall') {
 
@@ -578,42 +468,6 @@ function connect(c) {
                             $('.right .top .GoToEdit').attr('disabled', true)
                         }
                     );
-                    /*
-                    $(document).off('click', '#cd-buttons-yes');
-                    $(document).on('click', '#cd-buttons-yes', function (e) {
-                        ringtone.restart();
-                        if (!$("li.person[data-peerid='" + c.peer + "']")) {
-                            _activeEditInfo.RestartInfo();
-                            return;
-                        }
-
-                        $("li[data-tool='edit']").trigger('mousedown');
-                        let thisUser = $("li.person[data-peerid='" + c.peer + "']");
-                        thisUser.trigger('mousedown');
-
-                        closePopup(e);
-
-                        SendObjToActivePeer({
-                            type: 'sendEditCode',
-                            message: ''
-                        }, c.peer);
-                        //pozovi fju da napravis editor
-                        _activeEditInfo.userPeerId = c.peer;
-
-                    });
-                    $(document).off('click', '#cd-buttons-no');
-                    $(document).on('click', '#cd-buttons-no', function (e) {
-                        ringtone.restart();
-                        SendObjToActivePeer({
-                            type: 'askForEditCall',
-                            message: 'rejectedCall'
-                        }, c.peer);
-                        closePopup(e);
-                    });
-
-                    */
-
-
                 }
             } else if (data.type === 'sendEditCode') {
                 //uzmi podatke iz fajla i posalji ih ovom liku
@@ -933,14 +787,6 @@ $("#MessageTextField").keypress(function (e) {
     }
 });
 
-/*
-    let pid = $("li.person.active").attr("data-peerid");
-    let conn = peer.connections[pid][0];
-    conn.send({
-        type: 'askForVideoCall',
-        message: 'rejectedCall'
-    });
-    */
 function RejectVideoCall(peer) { //RejectVideoCall
     SendObjToActivePeer({
         type: "askForVideoCall",
@@ -957,14 +803,7 @@ function SendMessageOnEnter() {
     if ($("li.person.active").find(".status-online").length == 0) {
         return;
     }
-    /*
-    let pid = $("li.person.active").attr("data-peerid");
-    let conn = peer.connections[pid][0];
-    conn.send({
-        type: 'chat',
-        message: msg
-    });
-    */
+
     let pid = SendObjToActivePeer({
         type: 'chat',
         message: msg
@@ -1083,11 +922,7 @@ function videoCall(btn) {
                 DoVideoHangUp();
             }
         }, 58000);
-        /*
-        btn.style.backgroundImage = "url('images/app/end-call.png')";
-        $(btn).attr('data-video-call', 'true').css('background-color', '#ff0000');
-        document.getElementsByClassName('video-mute')[0].disabled = false;
-        */
+
         videoButtons.ActivateButton(videoButtons.buttons.callButton);
         videoButtons.NormalizeButton(videoButtons.buttons.muteYouButton);
         videoButtons.NormalizeButton(videoButtons.buttons.muteMeButton);
@@ -1096,9 +931,7 @@ function videoCall(btn) {
         if (window.existingCall) {
             DoVideoHangUp();
         }
-        //VideoCallButtonStart(btn); //put video button to state: start [call] 
-        //document.getElementsByClassName('video-mute')[0].disabled = true;
-        //videoButtons.DisableButton(videoButtons.buttons.muteYouButton);
+
     }
 }
 
@@ -1212,21 +1045,7 @@ function voiceCall(btn) {
     }
 }
 
-/*
-function VideoCallButtonStart(btn) {
-    btn = btn || document.getElementsByClassName('video-call')[0];
-    btn.style.backgroundImage = "url('images/app/start-call.png')";
-    $(btn).attr('data-video-call', 'false').css('background-color', '#00b0ff');
-}*/
-
 function AskForVideoCall() {
-    /*let pid = $("li.person.active").attr("data-peerid");
-    let conn = peer.connections[pid][0];
-    conn.send({
-        type: 'askForVideoCall',
-        message: ''
-    });
-    */
     SendObjToActivePeer({
         type: 'askForVideoCall',
         message: ''
@@ -1241,10 +1060,7 @@ function AskForVoiceCall() {
 }
 
 function DoVideoHangUp() {
-    //_acctiveCallInfo.RestartInfo();
     CloseCallWithUser();
-    //najmanje ovo gore treba da se obavi 
-    // treba videti sa peerjs-om kako se prekida video call
 }
 
 
@@ -1268,15 +1084,6 @@ function isVoiceCall() {
     }
     return true;
 }
-//ui namesti da dugme kada se promeni aktivan user kontrolise da li moze ili ne da se zove
-//ako nekog zoves onda drugi ne mogu da te zovu itd 
-
-
-
-
-// ucitati poruke prethodnih ljudi
-
-
 
 function SendObjToActivePeer(__o, __pid, __c) {
     __pid = __pid || $("li.person.active").attr("data-peerid");
@@ -1285,17 +1092,7 @@ function SendObjToActivePeer(__o, __pid, __c) {
     conn.send(__o);
     return __pid;
 }
-/*
-function SendNewFriendRequest(data) {
-    let c = peer.connect(requestedPeer, {
-        label: 'loggedin',
-        serialization: 'json',
-        metadata: {
-            message: '' + _myID
-        }
-    });
-}
-*/
+
 function CloseConnectionWithDeletedFriend(peerid) {
     if (connectedPeers[peerid]) {
         //unisti konekciju sa userom

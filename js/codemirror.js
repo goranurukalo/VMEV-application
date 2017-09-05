@@ -17,7 +17,6 @@ function SetLanguageForEditor(data) {
 }
 
 parent.InitEditor(function (data) {
-	console.log(data);
 	PrepareEditor(data);
 	SetLanguageForEditor(data);
 });

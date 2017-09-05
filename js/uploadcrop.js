@@ -39,7 +39,6 @@ function ValidateInputFileExtension(extension) {
     return false;
 }
 
-
 function croppiePreperImg(file) {
     let url = window.URL.createObjectURL(file);
     document.getElementById("croppieImg").setAttribute("src", url);
@@ -56,8 +55,6 @@ function croppieFunction() {
         }
     });
 }
-
-
 
 function imgReadyToSend() {
     $uploadCrop.result('blob').then(function (blob) {

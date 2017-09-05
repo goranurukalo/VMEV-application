@@ -120,8 +120,6 @@ function ScrollToTopMessage() {
 
 
 function voiceRender() {
-
-
 	//console.log('voice');
 	if (!isVoiceCall()) {
 		//nema voice call-a
@@ -147,20 +145,21 @@ function voiceRender() {
 
 		if (chosenPerson == _acctiveCallInfo.userPeerId && (_acctiveCallInfo.type == 'voice' || _acctiveCallInfo.type == 'audio')) {
 			voiceButtons.ActivateButton(voiceButtons.buttons.callButton);
-			let yourAudio = document.getElementById('your-voice');
+			let yourAudio = document.getElementById('your-audio');
+			yourAudio.muted = _acctiveCallInfo.muted;
 			if (_acctiveCallInfo.muted) {
-				//$("#your-video").attr('muted', 'true');
-				yourAudio.muted = true;
 				voiceButtons.ActivateButton(voiceButtons.buttons.muteYouButton);
 			} else {
-				//$("#your-video").attr('muted', 'false');
-				yourAudio.muted = false;
 				voiceButtons.NormalizeButton(voiceButtons.buttons.muteYouButton);
 			}
 
+			if (_acctiveCallInfo.myVoiceMuted) {
+				voiceButtons.ActivateButton(voiceButtons.buttons.muteMeButton);
+			} else {
+				voiceButtons.NormalizeButton(voiceButtons.buttons.muteMeButton);
+			}
 		} else {
-
-			videoButtons.DisableAllButtons();
+			voiceButtons.DisableAllButtons();
 			popupAlert('Voice call', 'In case you want to voice call with this friend, you need to end up existing call.');
 		}
 
@@ -194,12 +193,6 @@ function messageRender() {
 	// adding animation to messages 
 	//
 	var number = $('.right .active-chat').children().length - 1;
-	/*
-	$(".right .active-chat .bubble").each(function(index){
-		$(this).css({
-			'animation-duration' : 0.1*(1+ number - index) + 's'
-		});
-	});*/
 
 	//
 	// this is for going backword and stop adding animation after 20 elements
@@ -217,15 +210,9 @@ function messageRender() {
 
 function editRender() {
 	//ovo se desava samo kada pozivamo nekog
-	/*if ($('#code-mirror').is(':empty')) {
-		//document.getElementById("code-mirror").innerHTML = '<object type="text/html" data="edit.html" ></object>';
-		document.getElementById("code-mirror").innerHTML = '<iframe id="iframeEdit" src="edit.html" ></iframe>';
-	}*/
 	if (_activeEditInfo.userPeerId) {
 		//imamo edit
-
 		//pitaj da li smo kod tog user-a
-
 		//baci alert ako nismo
 
 	} else {
@@ -254,55 +241,24 @@ function videoRender() {
 	} else {
 		//proveriti da li pricam sa tom osobom
 		if (chosenPerson == _acctiveCallInfo.userPeerId && _acctiveCallInfo.type == 'video') {
-
-			//kada se vratim onome s kim pricam on ovo preskace vidi 
-
-
-			//podesi ui da bude onako kako je podesio
-			/*
-			let v = document.getElementsByClassName('video-call')[0];
-			v.disabled = false;
-			v.style.backgroundImage = "url('images/app/end-call.png')";
-			$(v).attr('data-video-call', 'true').css('background-color', '#ff0000');
-			*/
 			videoButtons.ActivateButton(videoButtons.buttons.callButton);
-			/*
-			let m = document.getElementsByClassName('video-mute')[0];
-			m.disabled = false;
-			*/
 			let yourVid = document.getElementById('your-video');
+			yourVid.muted = _acctiveCallInfo.muted;
 			if (_acctiveCallInfo.muted) {
-				yourVid.muted = true;
-				//m.style.backgroundImage = "url('images/app/muted.png')";
 				videoButtons.ActivateButton(videoButtons.buttons.muteYouButton);
 			} else {
-				yourVid.muted = false;
-				//m.style.backgroundImage = "url('images/app/speaker.png')";
 				videoButtons.NormalizeButton(videoButtons.buttons.muteYouButton);
-
 			}
 
+			if (_acctiveCallInfo.myVoiceMuted) {
+				videoButtons.ActivateButton(videoButtons.buttons.muteMeButton);
+			} else {
+				videoButtons.NormalizeButton(videoButtons.buttons.muteMeButton);
+			}
 		} else {
-			/*
-			let btn = document.getElementsByClassName('video-call')[0];
-			btn.disabled = true;
-			btn.style = '';
-			//btn.style.backgroundImage = "url('images/app/start-call.png')";
-			//$(btn).attr('data-video-call', 'true').css('background-color', '#00b0ff');
-			document.getElementsByClassName('video-mute')[0].disabled = true;
-
-			*/
 			videoButtons.DisableAllButtons();
-
 			popupAlert('Video call', 'In case you want to video call with this friend, you need to end up existing call.');
 		}
-
-
-		//ima video call-a
-		//baci alert da se prvo mora prekinuti postojeci razgovor 
-		//dodati ikonicu pored coveka s kojim pricas 
-		// ne mozes pricati ako imas video call 
-		// ne mozes pricati ako pricas
 	}
 }
 
@@ -312,8 +268,6 @@ function personExist() {
 	}
 	return true;
 }
-
-
 
 //
 //	Starting application
@@ -342,9 +296,6 @@ function SearchForNewFriends() {
 	let $searched_people = $('.searched-people');
 	$searched_people.html('');
 	if (!(/^[\S\s]{2,254}$/).test(txt)) {
-		/*$searched_people.css({
-			display: 'none'
-		});*/
 		$people.css({
 			height: 'calc( 100% - 54px)'
 		});
@@ -401,9 +352,6 @@ function SearchForNewFriends() {
 					"</li>";
 				$searched_people.append(peopleContactList);
 			}, this);
-			/*$searched_people.css({
-				display: 'block'
-			});*/
 			let newHeight = 54 + 72 * (1 + (data.server.length >= 3 ? 3 : data.server.length));
 			$people.css({
 				height: 'calc( 100% - ' + newHeight + 'px)'
@@ -545,8 +493,7 @@ function ButtonSection(_type, _parent) {
 	}
 
 }
-//var voiceButtons = JSON.parse(JSON.stringify(videoButtons));
-//voiceButtons.init('voice', '.voice-settings');
+
 var voiceButtons = ButtonSection('voice', '.voice-settings'),
 	videoButtons = ButtonSection('video', '.video-settings');
 var editButton = $(".edit-call");
