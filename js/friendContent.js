@@ -125,7 +125,7 @@ function CheckForFriendsRequests() {
 					display: 'none'
 				});*/
 			} else {
-				popupAlert('Search friends online ', err);
+				popupAlert('Search friends online error.', "Server problem. Try searching again or wait 10min.");
 				console.log(err);
 			}
 		},

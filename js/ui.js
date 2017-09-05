@@ -425,7 +425,8 @@ function ButtonSection(_type, _parent) {
 				break;
 
 			default:
-				alert('Execute Error');
+				//alert('Execute Error');
+				console.log('Disable button problem for ' + btn + ' button.');
 				break;
 		}
 	}
@@ -450,7 +451,7 @@ function ButtonSection(_type, _parent) {
 				break;
 
 			default:
-				alert('Execute Error');
+				console.log('Normalize button problem for ' + btn + ' button.');
 				break;
 		}
 	}
@@ -475,7 +476,7 @@ function ButtonSection(_type, _parent) {
 				break;
 
 			default:
-				alert('Execute Error');
+				console.log('Activate button problem for ' + btn + ' button.');
 				break;
 		}
 	}

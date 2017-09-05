@@ -64,7 +64,7 @@ function connect(c) {
   } else if (c.label === 'file') {
     c.on('data', function (data) {
       // If we're getting a file, create a URL for it.
-      console.log(data);
+      //console.log(data);
       if (data.constructor === ArrayBuffer) {
         var dataView = new Uint8Array(data);
         var dataBlob = new Blob([dataView]);

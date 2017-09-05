@@ -93,7 +93,7 @@ function SendPeerToServer(time) {
         },
         error: function (err) {
             //alert("Nesto nevalja kod upisa PeerID-a");
-            popupAlert('We couldnt send data about your application');
+            popupAlert("Application error.", 'We couldnt send data about your application');
         }
     });
 }
@@ -123,14 +123,16 @@ function CheckConnectionsBettwenFriends(friendArray) {
                 element.next().text("Online");
             });
             c.on('error', function (err) {
-                alert(err);
+                //alert(err);
+                popupAlert("Application error.", "Application have problem to connect with your friend. Please synchronize your application");
             });
 
             f.on('open', function () {
                 connect(f);
             });
             f.on('error', function (err) {
-                alert(err);
+                //alert(err);
+                popupAlert("Application error.", "Application have problem to connect with your friend. Please synchronize your application");
             });
         }
     });
@@ -161,14 +163,16 @@ function CheckConnectionWithFriend(requestedPeer, userId) {
                 element.next().text("Online");
             });
             c.on('error', function (err) {
-                alert(err);
+                //alert(err);
+                popupAlert("Application error.", "Application have problem to connect with your friend. Please synchronize your application");
             });
 
             f.on('open', function () {
                 connect(f);
             });
             f.on('error', function (err) {
-                alert(err);
+                popupAlert("Application error.", "Application have problem to connect with your friend. Please synchronize your application");
+                //alert(err);
             });
         }
     }
@@ -191,7 +195,8 @@ function SendNotificationForFriendRequest(requestedPeer) {
          });
         */
         c.on('error', function (err) {
-            alert(err);
+            //alert(err);
+            popupAlert("Application error.", "Application have problem to connect with your friend. Please synchronize your application");
         });
 
         c.on('close', function (err) {
@@ -657,7 +662,9 @@ function PrepareForVideoCall() { //step1 // ovo pozivamo kada stisnemo dugme i c
     }, function () {
         //ako dodje do errora 
         //popupAlert i ugasi poziv
-        alert('error - mikrofon ili video ili oba ');
+        //alert('error - mikrofon ili video ili oba ');
+        popupAlert("Application error.", "Microfon or video camera problem.");
+
     });
 }
 
@@ -715,8 +722,7 @@ function PrepareForVoiceCall() {
     }, function () {
         //ako dodje do errora 
         //popupAlert i ugasi poziv
-        alert();
-        alert('error - mikrofon ili video ili oba ');
+        popupAlert("Application error.", "Microfon problem.");
     });
 } //step1
 function VoiceCallUser(pid) {
@@ -853,7 +859,8 @@ $(document).ready(function () {
             var c = peer.connections[pid][1];
             if (c.label === 'file') {
                 if (file.type === undefined) {
-                    alert('Reci goranu da pogleda tvoj objekat!');
+                    //alert('Reci goranu da pogleda tvoj objekat!');
+                    popupAlert("Application error.", 'Sending file problems.');
                     console.log(file);
                     return;
                 }
