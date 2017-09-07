@@ -90,7 +90,11 @@ ipcMain.on('logged', function (event, arg) {
 	userData = arg;
 	logged = true;
 
-	createWindow();
+	if (arg != null) {
+		createWindow();
+	} else {
+		win.close();
+	}
 });
 
 ipcMain.on('friends', function (event, arg) {

@@ -63,7 +63,7 @@ function regex() {
 		userdata["lastName"] = $("#lastName").val();
 	} else if (action == 'reset') {
 
-		url = "resetpassword";
+		url = "requesttoResetPassword";
 
 		msg = _regex([
 			["email", "email"]
@@ -95,9 +95,16 @@ function regex() {
 		success: function (data) {
 			//alert("data:"+JSON.stringify(data));
 			//ipcRenderer.send('async', data);
-			ipcRenderer.send('logged', data);
+			if (url != "requesttoResetPassword") {
+				ipcRenderer.send('logged', data);
+			} else {
+				popupAlert("Reset password", "Check your email address for more information.");
+				$("#loading").fadeOut();
+				$("#container").fadeIn();
+			}
 		},
 		error: function (err) {
+			console.log(err);
 			popupAlert(url.charAt(0).toUpperCase() + url.slice(1) + ' error', err.responseJSON.Server);
 			//alert("err:" + JSON.stringify(err));
 			$("#loading").fadeOut();

@@ -481,6 +481,8 @@ function connect(c) {
                 _activeEditInfo.userPeerId = c.peer;
                 $('.right .top .GoToEdit').attr('disabled', false)
                 _editFile.languageDropList = $('#editorLanguage').attr('disabled', true).prop('selectedIndex');
+                _editFile.mime = $('#editorLanguage option:selected').val().split('|')[0];
+                console.log(_editFile);
                 SendObjToActivePeer({
                     type: 'acceptEditCode',
                     message: _editFile
@@ -497,9 +499,10 @@ function connect(c) {
                 $('.right .top .GoToEdit').attr('disabled', false)
                 //_editFile = data.message;
                 _activeEditInfo.dataForEditor = data.message;
+                console.log(data.message);
                 editButton.attr('disabled', false);
                 $('.edit-call').addClass('active-call');
-                $('#editorLanguage').attr('disabled', true).prop('selectedIndex', _editFile.languageDropList);
+                $('#editorLanguage').attr('disabled', true).prop('selectedIndex', _activeEditInfo.dataForEditor.languageDropList);
             } else if (data.type === 'rejectCalls') {
                 closePopup();
                 ringtone.restart();
@@ -507,7 +510,8 @@ function connect(c) {
                     $('#code-mirror').css('z-index', -1).html('');
                     if (_activeEditInfo) {
                         _activeEditInfo.ResetInfo();
-                        $('.right .top .GoToEdit').attr('disabled', true)
+                        $('.right .top .GoToEdit').attr('disabled', true);
+                        $("#editorLanguage").attr('disabled', false);
                     }
 
                     $('.edit-save').attr('disabled', true);
@@ -533,7 +537,8 @@ function connect(c) {
                 $('#code-mirror').css('z-index', -1).html('');
                 if (_activeEditInfo) {
                     _activeEditInfo.ResetInfo();
-                    $('.right .top .GoToEdit').attr('disabled', true)
+                    $('.right .top .GoToEdit').attr('disabled', true);
+                    $("#editorLanguage").attr('disabled', false);
                 }
 
                 $('.edit-save').attr('disabled', true);
